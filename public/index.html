@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Cagnote AI — Générateur de sites vitrine & e-commerce par IA</title>
+    <meta
+      name="description"
+      content="Décrivez votre activité, l'IA Claude génère un site vitrine ou e-commerce complet, prêt à télécharger."
+    />
+    <link rel="stylesheet" href="/styles.css" />
+    <link
+      rel="icon"
+      href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚡</text></svg>"
+    />
+  </head>
+  <body>
+    <header class="topbar">
+      <div class="brand">
+        <span class="logo">⚡</span>
+        <span>Cagnote<b>AI</b></span>
+      </div>
+      <nav>
+        <a href="#generateur">Générateur</a>
+        <a href="#projets">Mes sites</a>
+        <span id="apiBadge" class="badge" hidden></span>
+      </nav>
+    </header>
+
+    <section class="hero">
+      <div class="hero-inner">
+        <p class="eyebrow">SaaS propulsé par l'API Claude</p>
+        <h1>Générez un site <span class="grad">vitrine</span> ou <span class="grad">e-commerce</span> en quelques secondes.</h1>
+        <p class="lede">
+          Décrivez votre activité. L'IA conçoit un site complet, responsive et
+          élégant — que vous prévisualisez en direct et téléchargez en un clic.
+        </p>
+        <a href="#generateur" class="btn btn-primary btn-lg">Créer mon site →</a>
+      </div>
+    </section>
+
+    <main>
+      <section id="generateur" class="panel">
+        <div class="grid">
+          <!-- Formulaire -->
+          <form id="genForm" class="card form">
+            <h2>Décrivez votre projet</h2>
+
+            <div class="segmented" role="tablist" aria-label="Type de site">
+              <input type="radio" name="type" id="t-vitrine" value="vitrine" checked />
+              <label for="t-vitrine">🏛️ Site vitrine</label>
+              <input type="radio" name="type" id="t-ecom" value="ecommerce" />
+              <label for="t-ecom">🛒 E-commerce</label>
+            </div>
+
+            <label class="field">
+              <span>Nom de l'entreprise</span>
+              <input name="businessName" type="text" placeholder="Ex : Atelier Belleville" />
+            </label>
+
+            <label class="field">
+              <span>Secteur d'activité</span>
+              <input name="sector" type="text" placeholder="Ex : Boulangerie artisanale" />
+            </label>
+
+            <label class="field">
+              <span>Description du projet <b>*</b></span>
+              <textarea
+                name="description"
+                rows="4"
+                required
+                placeholder="Ex : Une boulangerie artisanale parisienne qui vend pains au levain, viennoiseries et pâtisseries. Ambiance chaleureuse, mise en avant du savoir-faire et des ingrédients locaux."
+              ></textarea>
+            </label>
+
+            <div class="row">
+              <label class="field">
+                <span>Couleur principale</span>
+                <div class="color-field">
+                  <input name="primaryColor" type="text" placeholder="#c0562f ou 'terracotta'" />
+                  <input type="color" id="colorPicker" value="#c0562f" aria-label="Choisir une couleur" />
+                </div>
+              </label>
+              <label class="field">
+                <span>Style visuel</span>
+                <select name="style">
+                  <option value="">Automatique</option>
+                  <option>Moderne & épuré</option>
+                  <option>Chaleureux & artisanal</option>
+                  <option>Luxe & élégant</option>
+                  <option>Coloré & ludique</option>
+                  <option>Corporate & sérieux</option>
+                  <option>Minimaliste</option>
+                </select>
+              </label>
+            </div>
+
+            <button type="submit" id="genBtn" class="btn btn-primary btn-lg">
+              ⚡ Générer le site
+            </button>
+            <p id="formHint" class="hint"></p>
+          </form>
+
+          <!-- Aperçu -->
+          <div class="card preview">
+            <div class="preview-head">
+              <div class="dots"><span></span><span></span><span></span></div>
+              <span id="previewLabel" class="preview-label">Aperçu en direct</span>
+              <div class="preview-actions" id="previewActions" hidden>
+                <button id="dlBtn" class="btn btn-ghost btn-sm">⬇ Télécharger</button>
+                <button id="openBtn" class="btn btn-ghost btn-sm">↗ Ouvrir</button>
+              </div>
+            </div>
+            <div class="preview-body">
+              <div id="placeholder" class="placeholder">
+                <div class="pulse">⚡</div>
+                <p>Votre site apparaîtra ici,<br />généré ligne par ligne.</p>
+              </div>
+              <pre id="codeStream" class="code-stream" hidden></pre>
+              <iframe id="previewFrame" title="Aperçu du site" hidden></iframe>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="projets" class="panel">
+        <div class="section-head">
+          <h2>Mes sites générés</h2>
+          <button id="refreshBtn" class="btn btn-ghost btn-sm">↻ Actualiser</button>
+        </div>
+        <div id="projectsList" class="projects">
+          <p class="muted">Chargement…</p>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <p>Cagnote AI — sites générés par le modèle <code>claude-opus-4-8</code>.</p>
+    </footer>
+
+    <script src="/app.js"></script>
+  </body>
+</html>
