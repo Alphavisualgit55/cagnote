@@ -1,0 +1,18 @@
+{
+  "name": "cagnote",
+  "version": "1.0.0",
+  "description": "SaaS IA qui génère des sites vitrine et e-commerce avec l'API Claude",
+  "type": "module",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "dependencies": {
+    "@anthropic-ai/sdk": "^0.111.0",
+    "express": "^4.21.2"
+  }
+}
