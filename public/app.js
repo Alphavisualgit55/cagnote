@@ -10,10 +10,43 @@ const previewActions = $("#previewActions");
 const previewLabel = $("#previewLabel");
 const projectsList = $("#projectsList");
 
-let currentId = null;
+const STORE_KEY = "cagnote.projects";
 let currentHtml = "";
+let currentBrief = null;
 
-// --- Vérification de la clé API ---
+/* ---------- Persistance navigateur (localStorage) ---------- */
+function loadStore() {
+  try {
+    return JSON.parse(localStorage.getItem(STORE_KEY)) || [];
+  } catch {
+    return [];
+  }
+}
+function saveStore(list) {
+  localStorage.setItem(STORE_KEY, JSON.stringify(list));
+}
+function addProject(brief, html) {
+  const list = loadStore();
+  const project = {
+    id:
+      (crypto.randomUUID && crypto.randomUUID()) ||
+      String(Date.now()) + Math.random().toString(16).slice(2),
+    brief,
+    html,
+    createdAt: new Date().toISOString(),
+  };
+  list.unshift(project);
+  saveStore(list);
+  return project;
+}
+function getProject(id) {
+  return loadStore().find((p) => p.id === id);
+}
+function removeProject(id) {
+  saveStore(loadStore().filter((p) => p.id !== id));
+}
+
+/* ---------- Vérification de la clé API ---------- */
 async function checkHealth() {
   try {
     const r = await fetch("/api/health");
@@ -37,7 +70,7 @@ $("#colorPicker").addEventListener("input", (e) => {
   form.primaryColor.value = e.target.value;
 });
 
-// --- Génération (streaming SSE) ---
+/* ---------- Génération (streaming SSE) ---------- */
 form.addEventListener("submit", async (e) => {
   e.preventDefault();
   const brief = {
@@ -58,7 +91,7 @@ form.addEventListener("submit", async (e) => {
   setLoading(true);
   formHint.textContent = "";
   currentHtml = "";
-  currentId = null;
+  currentBrief = brief;
   placeholder.hidden = true;
   previewFrame.hidden = true;
   previewActions.hidden = true;
@@ -104,14 +137,13 @@ async function readStream(body) {
       const evLine = chunk.match(/^event: (.+)$/m);
       const dataLine = chunk.match(/^data: (.+)$/m);
       if (!evLine || !dataLine) continue;
-      const event = evLine[1];
       let data;
       try {
         data = JSON.parse(dataLine[1]);
       } catch {
         continue;
       }
-      handleEvent(event, data);
+      handleEvent(evLine[1], data);
     }
   }
 }
@@ -122,10 +154,11 @@ function handleEvent(event, data) {
     codeStream.textContent = currentHtml;
     codeStream.scrollTop = codeStream.scrollHeight;
   } else if (event === "done") {
-    currentId = data.id;
+    if (data.html) currentHtml = data.html;
     renderPreview(currentHtml);
     previewLabel.textContent = "Aperçu — terminé ✓";
     previewActions.hidden = false;
+    if (currentBrief) addProject(currentBrief, currentHtml);
     loadProjects();
   } else if (event === "error") {
     showError(data.message);
@@ -141,7 +174,7 @@ function renderPreview(html) {
 function showError(msg) {
   codeStream.hidden = true;
   placeholder.hidden = false;
-  placeholder.querySelector("p").innerHTML = "❌ " + msg;
+  placeholder.querySelector("p").innerHTML = "❌ " + escapeHtml(msg);
   previewLabel.textContent = "Erreur";
 }
 
@@ -150,31 +183,47 @@ function setLoading(on) {
   genBtn.textContent = on ? "⏳ Génération…" : "⚡ Générer le site";
 }
 
-// --- Actions d'aperçu ---
+/* ---------- Aperçu / téléchargement (côté client) ---------- */
+function downloadHtml(html, businessName) {
+  const name =
+    (businessName || "site")
+      .toLowerCase()
+      .replace(/[^a-z0-9]+/g, "-")
+      .replace(/^-|-$/g, "") || "site";
+  const blob = new Blob([html], { type: "text/html" });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = `${name}.html`;
+  document.body.appendChild(a);
+  a.click();
+  a.remove();
+  setTimeout(() => URL.revokeObjectURL(url), 4000);
+}
+function openHtml(html) {
+  const blob = new Blob([html], { type: "text/html" });
+  const url = URL.createObjectURL(blob);
+  window.open(url, "_blank");
+  setTimeout(() => URL.revokeObjectURL(url), 60000);
+}
+
 $("#dlBtn").addEventListener("click", () => {
-  if (currentId) window.location.href = `/api/projects/${currentId}/download`;
+  if (currentHtml) downloadHtml(currentHtml, currentBrief?.businessName);
 });
 $("#openBtn").addEventListener("click", () => {
-  if (currentId) window.open(`/api/projects/${currentId}/preview`, "_blank");
+  if (currentHtml) openHtml(currentHtml);
 });
 
-// --- Galerie de projets ---
-async function loadProjects() {
-  try {
-    const r = await fetch("/api/projects");
-    const list = await r.json();
-    if (!Array.isArray(list) || list.length === 0) {
-      projectsList.innerHTML =
-        '<p class="muted">Aucun site pour le moment. Générez votre premier site ci-dessus.</p>';
-      return;
-    }
-    projectsList.innerHTML = "";
-    for (const p of list) {
-      projectsList.appendChild(renderProjectCard(p));
-    }
-  } catch {
-    projectsList.innerHTML = '<p class="muted">Impossible de charger les projets.</p>';
+/* ---------- Galerie ---------- */
+function loadProjects() {
+  const list = loadStore();
+  if (list.length === 0) {
+    projectsList.innerHTML =
+      '<p class="muted">Aucun site pour le moment. Générez votre premier site ci-dessus.</p>';
+    return;
   }
+  projectsList.innerHTML = "";
+  for (const p of list) projectsList.appendChild(renderProjectCard(p));
 }
 
 function renderProjectCard(p) {
@@ -191,9 +240,7 @@ function renderProjectCard(p) {
   });
 
   el.innerHTML = `
-    <div class="thumb">
-      <iframe loading="lazy" src="/api/projects/${p.id}/preview" title="${name}"></iframe>
-    </div>
+    <div class="thumb"><iframe loading="lazy" title="${name}"></iframe></div>
     <div class="meta">
       <span class="tag">${typeLabel} · ${date}</span>
       <h3>${name}</h3>
@@ -201,16 +248,19 @@ function renderProjectCard(p) {
     </div>
     <div class="actions">
       <button class="btn btn-ghost btn-sm act-open">↗ Ouvrir</button>
-      <a class="btn btn-primary btn-sm" href="/api/projects/${p.id}/download">⬇</a>
+      <button class="btn btn-primary btn-sm act-dl">⬇</button>
       <button class="icon-del act-del" title="Supprimer">🗑</button>
     </div>`;
 
-  el.querySelector(".act-open").addEventListener("click", () =>
-    window.open(`/api/projects/${p.id}/preview`, "_blank"),
+  // Miniature via srcdoc (aucune requête réseau, contenu isolé).
+  el.querySelector("iframe").srcdoc = p.html;
+  el.querySelector(".act-open").addEventListener("click", () => openHtml(p.html));
+  el.querySelector(".act-dl").addEventListener("click", () =>
+    downloadHtml(p.html, p.brief.businessName),
   );
-  el.querySelector(".act-del").addEventListener("click", async () => {
+  el.querySelector(".act-del").addEventListener("click", () => {
     if (!confirm(`Supprimer « ${p.brief.businessName || "ce site"} » ?`)) return;
-    await fetch(`/api/projects/${p.id}`, { method: "DELETE" });
+    removeProject(p.id);
     loadProjects();
   });
   return el;

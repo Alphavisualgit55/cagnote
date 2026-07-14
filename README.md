@@ -19,14 +19,22 @@ responsive et prêt à l'emploi — prévisualisé en direct et téléchargeable
 ## Architecture
 
 ```
-server.js            API Express + endpoints SSE
-lib/generator.js     Prompts + appel streaming à l'API Claude (claude-opus-4-8)
-lib/store.js         Persistance des projets (fichiers JSON dans data/)
-public/              Interface (landing + générateur + galerie)
+server.js                    Serveur Express (dev local) : /api/health + /api/generate (SSE)
+lib/generator.js             Prompts + appel streaming à l'API Claude (claude-opus-4-8)
+netlify/functions/           Version serverless (déploiement Netlify)
+  generate.mjs               Fonction streaming réutilisant lib/generator.js
+  health.mjs                 État de la clé API
+netlify.toml                 Config Netlify (static public/ + fonctions + redirects /api/*)
+public/                      Interface (landing + générateur + galerie)
   index.html
   styles.css
-  app.js             Client SSE, aperçu, galerie
+  app.js                     Client SSE, aperçu, galerie (persistée en localStorage)
 ```
+
+La génération est identique en local (Express) et en production (fonction
+Netlify) : les deux réutilisent `lib/generator.js` et streament le HTML.
+La galerie des sites est stockée **dans le navigateur** (`localStorage`), ce qui
+rend l'app compatible avec un hébergement sans état.
 
 Le générateur envoie un **system prompt** strict qui impose un fichier HTML
 unique et autonome (CSS/JS inline, images via dégradés ou `picsum.photos`,
@@ -82,13 +90,36 @@ Exemple de corps pour `POST /api/generate` :
   en **streaming** (`max_tokens: 64000`) — l'aperçu se remplit en temps réel.
 - **SDK** : `@anthropic-ai/sdk` officiel ; la clé est résolue depuis
   l'environnement (`ANTHROPIC_API_KEY`).
-- **Sécurité** : identifiants de projets restreints aux UUID (protection contre
-  la traversée de répertoire) ; aperçu rendu dans un iframe.
-- **Zéro base de données** : les projets sont stockés en fichiers JSON sous `data/`.
+- **Sécurité** : aperçu rendu dans un iframe isolé ; aucune donnée serveur.
+- **Zéro base de données** : les projets générés sont stockés côté navigateur
+  (`localStorage`) ; téléchargement/aperçu via des Blobs.
+
+## Déploiement sur Netlify
+
+L'app est prête pour Netlify (site statique `public/` + fonctions serverless).
+
+**Option 1 — depuis le dépôt GitHub (recommandé) :**
+1. Sur https://app.netlify.com → **Add new site → Import an existing project**.
+2. Choisir ce dépôt GitHub et la branche à déployer.
+3. Netlify lit `netlify.toml` automatiquement (build dir `public`, fonctions).
+4. **Site configuration → Environment variables → Add** :
+   `ANTHROPIC_API_KEY = sk-ant-...`
+5. **Deploy** → Netlify fournit une URL `https://<nom>.netlify.app`.
+
+**Option 2 — via la CLI :**
+```bash
+npm i -g netlify-cli
+netlify deploy --prod   # suit netlify.toml ; définir ANTHROPIC_API_KEY dans le dashboard
+```
+
+> ⚠️ **Limite Netlify** : les fonctions serverless ont une durée d'exécution
+> plafonnée (~10 à 26 s). Un site complexe généré à haut niveau d'effort peut
+> dépasser ce délai. Pour des générations longues sans coupure, un hébergement
+> qui exécute le serveur Express (Render, Railway, Fly.io) est plus adapté.
 
 ## Limites & pistes d'évolution
 
-- Le stockage fichier convient à une démo mono-utilisateur ; pour la production,
-  brancher une base de données et de l'authentification multi-utilisateurs.
 - Les checkout e-commerce générés sont **simulés** (aucun paiement réel) — à
   connecter à Stripe/Shopify pour une vraie boutique.
+- Pour du multi-utilisateur persistant, brancher une base de données et de
+  l'authentification.
