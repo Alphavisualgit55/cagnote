@@ -410,3 +410,187 @@ footer {
   animation: spin 0.9s linear infinite;
 }
 @keyframes spin { to { transform: rotate(360deg); } }
+
+/* =========================================================
+   PAGE DE VENTE ENRICHIE — animations & sections premium
+   ========================================================= */
+
+/* ---------- Animations (keyframes) ---------- */
+@keyframes fadeUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-14px); } }
+@keyframes pulseGlow {
+  0%, 100% { box-shadow: 0 12px 30px rgba(255, 122, 0, 0.35); }
+  50% { box-shadow: 0 12px 44px rgba(255, 122, 0, 0.65); }
+}
+@keyframes gradientShift { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
+@keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+@keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0.35; } }
+@keyframes shine { 0% { left: -60%; } 100% { left: 140%; } }
+
+/* ---------- Reveal au scroll ----------
+   Sécurité : les éléments ne sont masqués QUE si le JS a ajouté la classe
+   .js sur <html>. Sans JS (ou si le JS échoue), tout reste visible. */
+.js .reveal { opacity: 0; transform: translateY(34px); transition: opacity 0.7s ease, transform 0.7s ease; }
+.js .reveal.in { opacity: 1; transform: translateY(0); }
+.reveal.d1 { transition-delay: 0.1s; }
+.reveal.d2 { transition-delay: 0.2s; }
+.reveal.d3 { transition-delay: 0.3s; }
+@media (prefers-reduced-motion: reduce) {
+  .js .reveal { opacity: 1; transform: none; transition: none; }
+  * { animation: none !important; }
+}
+
+/* ---------- Barre promo animée ---------- */
+.promo-bar { overflow: hidden; position: relative; padding: 0; }
+.promo-track { display: flex; width: max-content; animation: marquee 22s linear infinite; }
+.promo-track span { padding: 10px 26px; white-space: nowrap; font-weight: 600; }
+.promo-bar:hover .promo-track { animation-play-state: paused; }
+
+/* ---------- Header sticky ---------- */
+header.site-header {
+  position: sticky; top: 0; z-index: 60;
+  background: rgba(11, 16, 32, 0.82);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--card-border);
+}
+
+/* ---------- Hero enrichi ---------- */
+.hero { position: relative; overflow: hidden; padding-top: 50px; }
+.hero .blob {
+  position: absolute; border-radius: 50%; filter: blur(60px); z-index: 0; opacity: 0.55;
+  animation: float 7s ease-in-out infinite;
+}
+.hero .blob.b1 { width: 340px; height: 340px; background: rgba(255, 122, 0, 0.35); top: -80px; right: -60px; }
+.hero .blob.b2 { width: 300px; height: 300px; background: rgba(80, 120, 255, 0.28); bottom: -100px; left: -70px; animation-delay: 1.5s; }
+.hero .container { position: relative; z-index: 1; }
+.hero h1 { animation: fadeUp 0.8s ease both; }
+.hero .badge { animation: fadeUp 0.6s ease both; }
+.hero p.sub { animation: fadeUp 1s ease both; }
+.hero .hero-points { list-style: none; max-width: 640px; margin: 0 auto 26px; display: grid; gap: 10px; text-align: left; }
+.hero .hero-points li { display: flex; gap: 10px; align-items: flex-start; color: var(--text); font-size: 0.98rem; }
+.hero .hero-points li::before { content: '✅'; }
+.hero .trust { display: flex; flex-wrap: wrap; gap: 18px; justify-content: center; margin-top: 18px; color: var(--muted); font-size: 0.85rem; }
+.hero .trust span { display: inline-flex; align-items: center; gap: 6px; }
+
+/* Bouton avec effet brillance + pulsation */
+.btn-primary { position: relative; overflow: hidden; animation: pulseGlow 2.6s ease-in-out infinite; }
+.btn-primary::after {
+  content: ''; position: absolute; top: 0; left: -60%; width: 40%; height: 100%;
+  background: linear-gradient(120deg, transparent, rgba(255,255,255,0.35), transparent);
+  transform: skewX(-20deg); animation: shine 3.2s ease-in-out infinite;
+}
+.btn-lg { padding: 18px 40px; font-size: 1.12rem; }
+
+/* ---------- Bandeau statistiques ---------- */
+.stats { background: linear-gradient(180deg, var(--bg-soft), transparent); padding: 50px 0; }
+.stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 20px; text-align: center; }
+.stat .n { font-size: clamp(1.8rem, 5vw, 2.6rem); font-weight: 800; color: var(--gold); line-height: 1; }
+.stat .l { color: var(--muted); font-size: 0.9rem; margin-top: 6px; }
+
+/* ---------- Section problème ---------- */
+.pain { background: var(--bg-soft); }
+.pain-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 18px; }
+.pain-item {
+  background: var(--card); border: 1px solid rgba(231, 76, 60, 0.25); border-left: 4px solid #e74c3c;
+  border-radius: 12px; padding: 20px; display: flex; gap: 12px; align-items: flex-start;
+}
+.pain-item .x { color: #ff7a6b; font-size: 1.2rem; flex-shrink: 0; }
+.pain-item p { color: var(--muted); font-size: 0.95rem; }
+.pain-arrow { text-align: center; font-size: 2rem; margin: 30px 0 6px; }
+
+/* ---------- Modules détaillés ---------- */
+.module { transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease; flex-direction: column; }
+.module:hover { transform: translateY(-6px); border-color: rgba(255, 122, 0, 0.5); box-shadow: 0 20px 40px rgba(0,0,0,0.35); }
+.module-top { display: flex; gap: 16px; align-items: center; margin-bottom: 12px; }
+.module ul { list-style: none; margin-top: 8px; display: grid; gap: 7px; }
+.module ul li { color: var(--muted); font-size: 0.9rem; padding-left: 22px; position: relative; }
+.module ul li::before { content: '→'; position: absolute; left: 0; color: var(--accent); font-weight: 700; }
+
+/* ---------- Bonus avec valeur ---------- */
+.bonus { transition: transform 0.2s ease, box-shadow 0.2s ease; position: relative; }
+.bonus:hover { transform: translateY(-6px); box-shadow: 0 20px 40px rgba(0,0,0,0.35); }
+.bonus .valeur { margin-top: 12px; font-weight: 700; color: var(--gold); font-size: 0.9rem; }
+.bonus .valeur s { color: var(--muted); font-weight: 500; }
+
+/* ---------- Témoignages ---------- */
+.testimonials-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; }
+.testi { background: var(--card); border: 1px solid var(--card-border); border-radius: var(--radius); padding: 24px; }
+.testi .stars { color: var(--gold); letter-spacing: 2px; margin-bottom: 10px; }
+.testi p { color: var(--text); font-size: 0.95rem; font-style: italic; }
+.testi .who { display: flex; align-items: center; gap: 12px; margin-top: 16px; }
+.testi .avatar { width: 44px; height: 44px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 800; color: #1a1200; background: linear-gradient(180deg, var(--gold), var(--accent)); flex-shrink: 0; }
+.testi .who .name { font-weight: 700; font-size: 0.9rem; }
+.testi .who .loc { color: var(--muted); font-size: 0.8rem; }
+
+/* ---------- Pour qui ---------- */
+.forwho-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 18px; }
+.forwho { background: var(--card); border: 1px solid var(--card-border); border-radius: var(--radius); padding: 24px; }
+.forwho .ico { font-size: 1.8rem; margin-bottom: 8px; }
+.forwho h3 { font-size: 1.02rem; margin-bottom: 6px; }
+.forwho p { color: var(--muted); font-size: 0.9rem; }
+
+/* ---------- Offre / empilement de valeur ---------- */
+.offer { background: linear-gradient(180deg, rgba(255,122,0,0.06), transparent); }
+.value-stack { max-width: 620px; margin: 0 auto 26px; background: var(--card); border: 1px solid var(--card-border); border-radius: var(--radius); padding: 26px; }
+.value-stack .row { display: flex; justify-content: space-between; gap: 14px; padding: 11px 0; border-bottom: 1px dashed rgba(255,255,255,0.09); font-size: 0.95rem; }
+.value-stack .row span:first-child { color: var(--text); }
+.value-stack .row span:first-child::before { content: '✅ '; }
+.value-stack .row .v { color: var(--muted); white-space: nowrap; font-weight: 600; }
+.value-stack .row.total { border-bottom: none; border-top: 2px solid var(--card-border); margin-top: 8px; padding-top: 16px; font-weight: 800; font-size: 1.05rem; }
+.value-stack .row.total .v { color: var(--muted); }
+.value-stack .row.total .v s { color: #ff7a6b; }
+
+.price-final { text-align: center; margin: 22px 0 6px; }
+.price-final .today { color: var(--muted); font-weight: 600; }
+.price-final .big { font-size: clamp(2.6rem, 7vw, 3.8rem); font-weight: 800; color: #fff; line-height: 1.1; }
+.price-final .big small { font-size: 1.2rem; color: var(--gold); }
+.price-final .save { display: inline-block; margin-top: 8px; background: rgba(46, 204, 113, 0.14); border: 1px solid rgba(46,204,113,0.4); color: #7be6a8; font-weight: 700; padding: 5px 16px; border-radius: 999px; font-size: 0.85rem; }
+
+/* ---------- Garantie ---------- */
+.guarantee { max-width: 620px; margin: 26px auto 0; background: var(--card); border: 1px dashed rgba(255,194,75,0.4); border-radius: var(--radius); padding: 22px 24px; display: flex; gap: 16px; align-items: center; }
+.guarantee .seal { font-size: 2.4rem; flex-shrink: 0; animation: float 5s ease-in-out infinite; }
+.guarantee h3 { font-size: 1rem; margin-bottom: 4px; }
+.guarantee p { color: var(--muted); font-size: 0.88rem; }
+
+/* ---------- Urgence places ---------- */
+.spots { text-align: center; margin: 18px auto 0; color: var(--gold); font-weight: 600; font-size: 0.92rem; }
+.spots .dot { display: inline-block; width: 9px; height: 9px; border-radius: 50%; background: #e74c3c; margin-right: 6px; animation: blink 1.3s ease-in-out infinite; }
+
+/* ---------- CTA final ---------- */
+.final-cta { text-align: center; background: var(--bg-soft); }
+.final-cta h2 { font-size: clamp(1.6rem, 4vw, 2.4rem); font-weight: 800; margin-bottom: 14px; }
+.final-cta p { color: var(--muted); max-width: 560px; margin: 0 auto 26px; }
+
+/* ---------- Section histoire / fondateur ---------- */
+.story-grid { display: grid; grid-template-columns: 1fr; gap: 34px; align-items: center; }
+@media (min-width: 820px) { .story-grid { grid-template-columns: 0.9fr 1.1fr; } }
+.story-text h2 { text-align: left; }
+.story-text .lead { color: var(--text); font-size: 1.05rem; margin: 6px 0 16px; }
+.story-text p { color: var(--muted); margin-bottom: 14px; }
+.story-highlights { list-style: none; display: grid; gap: 12px; margin-top: 18px; }
+.story-highlights li { display: flex; gap: 12px; align-items: flex-start; }
+.story-highlights .em {
+  flex-shrink: 0; width: 40px; height: 40px; border-radius: 10px; display: flex; align-items: center; justify-content: center;
+  background: linear-gradient(180deg, var(--gold), var(--accent)); color: #1a1200; font-size: 1.1rem;
+}
+.story-highlights strong { display: block; color: var(--text); }
+.story-highlights span { color: var(--muted); font-size: 0.9rem; }
+
+/* ---------- Emplacement photo ---------- */
+.photo-box {
+  width: 100%; aspect-ratio: 4 / 5; border-radius: 20px; overflow: hidden;
+  background:
+    repeating-linear-gradient(45deg, rgba(255,255,255,0.03) 0 12px, transparent 12px 24px),
+    linear-gradient(180deg, var(--card), var(--bg-soft));
+  border: 2px dashed rgba(255, 194, 75, 0.45);
+  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px;
+  color: var(--muted); text-align: center; padding: 20px; box-shadow: var(--shadow);
+}
+.photo-box .ico { font-size: 2.4rem; }
+.photo-box small { font-size: 0.78rem; max-width: 220px; }
+.photo-box img { width: 100%; height: 100%; object-fit: cover; }
+.photo-box.round { aspect-ratio: 1 / 1; border-radius: 50%; max-width: 300px; margin: 0 auto; }
+
+/* Bande photos "preuves / résultats" */
+.proof-strip { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 16px; margin-top: 12px; }
+.proof-strip .photo-box { aspect-ratio: 1 / 1; border-radius: 14px; }
