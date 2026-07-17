@@ -26,7 +26,7 @@
     });
   }
 
-  // Récupère la config (numéro WhatsApp du formateur, lien communauté, site).
+  // Récupère la config (numéro WhatsApp du formateur, lien du site).
   var configLoaded = fetch('/api/config')
     .then(function (r) { return r.ok ? r.json() : {}; })
     .then(function (c) { cfg = c || {}; })
@@ -54,21 +54,14 @@
     var num = (cfg.supportWhatsapp || '').replace(/[^0-9]/g, '');
     if (contactBtn && num) {
       var msg =
-        'Bonjour, je viens de payer la formation Ecom Booster.\n' +
+        'Bonjour, je viens de payer la formation Ecom Booster ✅\n' +
         'Facture n° ' + (data.facture || '') + '\n' +
         'Nom : ' + [cust.prenom, cust.nom].filter(Boolean).join(' ') + '\n' +
         'Email : ' + (cust.email || '') + '\n' +
-        'Je souhaite accéder à la formation.';
+        'Merci de m\'envoyer mes accès à la formation.';
       contactBtn.href = 'https://wa.me/' + num + '?text=' + encodeURIComponent(msg);
     } else if (contactBtn) {
       contactBtn.classList.add('hidden');
-    }
-
-    // Bouton communauté (si un lien de groupe est configuré)
-    var waBtn = document.getElementById('wa-group-btn');
-    if (waBtn && cfg.whatsappGroupUrl) {
-      waBtn.href = cfg.whatsappGroupUrl;
-      waBtn.classList.remove('hidden');
     }
 
     show(success);

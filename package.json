@@ -1,7 +1,7 @@
 {
-  "name": "ecom-booster-funnel",
+  "name": "ecom-booster",
   "version": "1.0.0",
-  "description": "Tunnel de vente de la formation Ecom Booster avec paiement PayDunya",
+  "description": "Ecom Booster — tunnel de vente de la formation e-commerce avec paiement PayDunya",
   "main": "server.js",
   "scripts": {
     "start": "node server.js",

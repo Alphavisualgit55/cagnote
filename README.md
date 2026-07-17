@@ -44,8 +44,7 @@ Les redirections mappent `/api/config`, `/api/checkout`, `/api/verify/:token`,
 | `SUPABASE_URL` | `https://cbvykjzrmcuqtdrwbanf.supabase.co` |
 | `SUPABASE_SERVICE_ROLE_KEY` | Clé **service_role** (secrète) — Supabase → *Project Settings → API Keys* |
 | `APP_BASE_URL` | URL publique du site (ex : `https://ecom-booster.netlify.app`) |
-| `WHATSAPP_GROUP_URL` | Lien d'invitation de ta communauté WhatsApp (optionnel) |
-| `SUPPORT_WHATSAPP` | Numéro WhatsApp du formateur (déjà `+221755274787` par défaut) |
+| `SUPPORT_WHATSAPP` | Numéro WhatsApp du formateur, cliqué par le client après paiement pour recevoir ses accès (déjà `+221755274787` par défaut) |
 | `PRICE_FCFA` | Prix (par défaut `100000`) |
 | `PROMO_DEADLINE` | Fin de la promo pour le compte à rebours (par défaut 5 août) |
 
