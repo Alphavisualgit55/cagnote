@@ -36,6 +36,22 @@ function baseUrl(req) {
   return `${req.protocol}://${req.get('host')}`;
 }
 
+// Génère un numéro de facture unique et lisible, dérivé du token PayDunya
+// (déterministe : le même paiement donne toujours la même référence).
+function factureNumber(token) {
+  let hash = 0;
+  const str = String(token || '');
+  for (let i = 0; i < str.length; i++) {
+    hash = (hash * 31 + str.charCodeAt(i)) >>> 0;
+  }
+  const ref = hash.toString(36).toUpperCase().padStart(6, '0').slice(0, 6);
+  return `EB-${ref}`;
+}
+
+function formatMontant(n) {
+  return Number(n || 0).toLocaleString('fr-FR');
+}
+
 // ---------------------------------------------------------------------------
 // Enregistrement simple des commandes dans orders.json
 // ---------------------------------------------------------------------------
@@ -55,12 +71,13 @@ function saveOrder(order) {
 // ---------------------------------------------------------------------------
 // Config publique exposée au front (liens WhatsApp, prix…)
 // ---------------------------------------------------------------------------
-app.get('/api/config', (_req, res) => {
+app.get('/api/config', (req, res) => {
   res.json({
     price: PRICE_FCFA,
     whatsappGroupUrl: process.env.WHATSAPP_GROUP_URL || '',
     supportWhatsapp: process.env.SUPPORT_WHATSAPP || '+221755274787',
     promoDeadline: process.env.PROMO_DEADLINE || '2026-08-05T23:59:59',
+    siteUrl: baseUrl(req),
   });
 });
 
@@ -152,16 +169,27 @@ app.get('/api/verify/:token', async (req, res) => {
     const data = await r.json();
 
     const completed = data.status === 'completed';
+    const montant = data.invoice ? data.invoice.total_amount : PRICE_FCFA;
+    const facture = factureNumber(req.params.token);
+
     if (completed) {
       saveOrder({
         date: new Date().toISOString(),
         statut: 'paye',
+        facture,
         token: req.params.token,
         ...(data.custom_data || {}),
-        montant: data.invoice ? data.invoice.total_amount : PRICE_FCFA,
+        montant,
       });
     }
-    return res.json({ status: data.status || 'unknown', customer: data.custom_data || null });
+    return res.json({
+      status: data.status || 'unknown',
+      customer: data.custom_data || null,
+      facture,
+      montant,
+      montantFormate: formatMontant(montant),
+      date: new Date().toISOString(),
+    });
   } catch (err) {
     console.error('Erreur PayDunya (confirm):', err);
     return res.status(502).json({ error: 'Vérification impossible pour le moment.' });

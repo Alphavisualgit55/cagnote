@@ -32,16 +32,50 @@
       <div class="card merci-card hidden" id="state-success">
         <div class="icon">🎉</div>
         <h1>Félicitations <span id="client-prenom"></span>, ton paiement est confirmé !</h1>
-        <p>Bienvenue dans <strong>Ecom Booster</strong>. Voici la suite :</p>
+        <p>Bienvenue dans <strong>Ecom Booster</strong>. Voici ta facture :</p>
+
+        <!-- Facture unique -->
+        <div class="facture" id="facture">
+          <div class="facture-head">
+            <div>
+              <div class="facture-brand">ECOM<span>BOOSTER</span></div>
+              <div class="facture-label">Facture / Reçu de paiement</div>
+            </div>
+            <div class="facture-num">
+              <span class="lbl">N° de facture</span>
+              <strong id="f-num">EB-000000</strong>
+            </div>
+          </div>
+          <div class="facture-rows">
+            <div class="f-row"><span>Date</span><span id="f-date">—</span></div>
+            <div class="f-row"><span>Client</span><span id="f-client">—</span></div>
+            <div class="f-row"><span>Email</span><span id="f-email">—</span></div>
+            <div class="f-row"><span>WhatsApp</span><span id="f-whatsapp">—</span></div>
+            <div class="f-row"><span>Formation</span><span>Ecom Booster — accès complet</span></div>
+            <div class="f-row"><span>Statut</span><span class="f-paid">✅ Payé</span></div>
+          </div>
+          <div class="facture-total">
+            <span>Total payé</span>
+            <span class="amount"><span id="f-montant">100.000</span> FCFA</span>
+          </div>
+        </div>
+
         <ul class="steps">
-          <li>📧 Tes accès à la formation arrivent sur ton <strong>email</strong>.</li>
-          <li>📱 Tu seras contacté sur ton <strong>numéro WhatsApp</strong> pour rejoindre la communauté privée et démarrer ton accompagnement de 30 jours.</li>
-          <li>🎁 Tes bonus (thèmes Shopify, produits gagnants, contact transitaire, admachine.io) te seront remis dans la communauté.</li>
+          <li>📧 Garde bien ton <strong>numéro de facture</strong> : il te sera demandé pour accéder à la formation.</li>
+          <li>📱 Clique sur le bouton ci-dessous pour <strong>contacter le formateur</strong> et recevoir tes accès + rejoindre la communauté privée.</li>
         </ul>
-        <a class="btn wa-btn hidden" id="wa-group-btn" href="#" target="_blank" rel="noopener">
-          💬 Rejoindre la communauté WhatsApp
+
+        <a class="btn wa-btn" id="contact-btn" href="#" target="_blank" rel="noopener">
+          💬 Contacter le formateur pour accéder à la formation
         </a>
-        <p style="margin-top:18px; font-size:0.85rem;">Un souci ? Écris-nous sur WhatsApp : <a id="support-link" href="#" style="color:var(--gold);">notre support</a></p>
+
+        <a class="btn wa-btn hidden" id="wa-group-btn" href="#" target="_blank" rel="noopener" style="margin-top:12px;">
+          👥 Rejoindre la communauté WhatsApp
+        </a>
+
+        <p class="site-line">
+          🌐 Site officiel : <a id="site-link" href="#">ecombooster</a>
+        </p>
       </div>
 
       <!-- Paiement non confirmé -->

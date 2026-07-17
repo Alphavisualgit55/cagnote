@@ -1,5 +1,5 @@
 // Page de confirmation : vérifie le statut du paiement auprès du serveur
-// (qui interroge PayDunya) puis affiche l'état correspondant.
+// (qui interroge PayDunya), affiche la facture unique et le bouton de contact.
 (function () {
   var loading = document.getElementById('state-loading');
   var success = document.getElementById('state-success');
@@ -10,40 +10,84 @@
     el.classList.remove('hidden');
   }
 
-  // Liens WhatsApp (groupe + support) fournis par le serveur.
-  fetch('/api/config')
-    .then(function (r) { return r.ok ? r.json() : null; })
-    .then(function (cfg) {
-      if (!cfg) return;
-      var waBtn = document.getElementById('wa-group-btn');
-      if (cfg.whatsappGroupUrl) {
-        waBtn.href = cfg.whatsappGroupUrl;
-        waBtn.classList.remove('hidden');
-      }
-      var support = document.getElementById('support-link');
-      if (cfg.supportWhatsapp) {
-        support.href = 'https://wa.me/' + cfg.supportWhatsapp.replace(/[^0-9]/g, '');
-      } else {
-        support.parentElement.classList.add('hidden');
-      }
-    })
-    .catch(function () {});
+  function txt(id, value) {
+    var el = document.getElementById(id);
+    if (el && value) el.textContent = value;
+  }
+
+  var cfg = {};
+
+  function formatDate(iso) {
+    var d = iso ? new Date(iso) : new Date();
+    if (isNaN(d.getTime())) d = new Date();
+    return d.toLocaleDateString('fr-FR', {
+      day: '2-digit', month: '2-digit', year: 'numeric',
+      hour: '2-digit', minute: '2-digit',
+    });
+  }
+
+  // Récupère la config (numéro WhatsApp du formateur, lien communauté, site).
+  var configLoaded = fetch('/api/config')
+    .then(function (r) { return r.ok ? r.json() : {}; })
+    .then(function (c) { cfg = c || {}; })
+    .catch(function () { cfg = {}; });
+
+  function setupSuccess(data) {
+    var cust = data.customer || {};
+    txt('client-prenom', cust.prenom || '');
+    txt('f-num', data.facture || '—');
+    txt('f-date', formatDate(data.date));
+    txt('f-client', [cust.prenom, cust.nom].filter(Boolean).join(' ') || '—');
+    txt('f-email', cust.email || '—');
+    txt('f-whatsapp', cust.whatsapp || '—');
+    txt('f-montant', data.montantFormate || '100.000');
+
+    // Lien du site
+    var siteLink = document.getElementById('site-link');
+    if (siteLink && cfg.siteUrl) {
+      siteLink.href = cfg.siteUrl;
+      siteLink.textContent = cfg.siteUrl.replace(/^https?:\/\//, '');
+    }
+
+    // Bouton "Contacter le formateur" : WhatsApp avec la facture pré-remplie
+    var contactBtn = document.getElementById('contact-btn');
+    var num = (cfg.supportWhatsapp || '').replace(/[^0-9]/g, '');
+    if (contactBtn && num) {
+      var msg =
+        'Bonjour, je viens de payer la formation Ecom Booster.\n' +
+        'Facture n° ' + (data.facture || '') + '\n' +
+        'Nom : ' + [cust.prenom, cust.nom].filter(Boolean).join(' ') + '\n' +
+        'Email : ' + (cust.email || '') + '\n' +
+        'Je souhaite accéder à la formation.';
+      contactBtn.href = 'https://wa.me/' + num + '?text=' + encodeURIComponent(msg);
+    } else if (contactBtn) {
+      contactBtn.classList.add('hidden');
+    }
+
+    // Bouton communauté (si un lien de groupe est configuré)
+    var waBtn = document.getElementById('wa-group-btn');
+    if (waBtn && cfg.whatsappGroupUrl) {
+      waBtn.href = cfg.whatsappGroupUrl;
+      waBtn.classList.remove('hidden');
+    }
+
+    show(success);
+  }
 
   var token = new URLSearchParams(window.location.search).get('token');
   if (!token) {
-    // Arrivée sans token (accès direct) : on affiche l'état "en attente".
-    show(pending);
+    configLoaded.then(function () { show(pending); });
     return;
   }
 
-  fetch('/api/verify/' + encodeURIComponent(token))
-    .then(function (r) { return r.json(); })
-    .then(function (data) {
-      if (data.status === 'completed') {
-        if (data.customer && data.customer.prenom) {
-          document.getElementById('client-prenom').textContent = data.customer.prenom;
-        }
-        show(success);
+  Promise.all([
+    configLoaded,
+    fetch('/api/verify/' + encodeURIComponent(token)).then(function (r) { return r.json(); }),
+  ])
+    .then(function (results) {
+      var data = results[1];
+      if (data && data.status === 'completed') {
+        setupSuccess(data);
       } else {
         show(pending);
       }

@@ -323,6 +323,56 @@ footer {
   box-shadow: 0 12px 30px rgba(46, 204, 113, 0.35);
 }
 .hidden { display: none !important; }
+.merci-card .site-line { margin-top: 18px; font-size: 0.88rem; }
+.merci-card .site-line a { color: var(--gold); font-weight: 600; text-decoration: none; }
+
+/* ---------- Facture ---------- */
+.facture {
+  text-align: left;
+  background: var(--bg-soft);
+  border: 1px solid var(--card-border);
+  border-radius: 14px;
+  padding: 22px;
+  margin: 22px 0;
+}
+.facture-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 12px;
+  border-bottom: 1px solid var(--card-border);
+  padding-bottom: 16px;
+  margin-bottom: 16px;
+}
+.facture-brand { font-weight: 800; font-size: 1.05rem; letter-spacing: 0.5px; }
+.facture-brand span { color: var(--accent); }
+.facture-label { color: var(--muted); font-size: 0.8rem; margin-top: 2px; }
+.facture-num { text-align: right; }
+.facture-num .lbl { display: block; color: var(--muted); font-size: 0.72rem; text-transform: uppercase; letter-spacing: 1px; }
+.facture-num strong { font-size: 1.05rem; color: var(--gold); letter-spacing: 1px; }
+.facture-rows { display: grid; gap: 2px; }
+.f-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 8px 0;
+  border-bottom: 1px dashed rgba(255, 255, 255, 0.07);
+  font-size: 0.92rem;
+}
+.f-row > span:first-child { color: var(--muted); }
+.f-row > span:last-child { font-weight: 600; text-align: right; word-break: break-word; }
+.f-paid { color: var(--green) !important; }
+.facture-total {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 16px;
+  padding-top: 14px;
+  border-top: 1px solid var(--card-border);
+  font-weight: 800;
+  font-size: 1.15rem;
+}
+.facture-total .amount { color: var(--gold); }
 
 /* ---------- Bouton WhatsApp flottant ---------- */
 .wa-float {
