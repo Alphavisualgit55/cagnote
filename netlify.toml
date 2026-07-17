@@ -1,0 +1,27 @@
+[build]
+  publish = "public"
+  functions = "netlify/functions"
+
+[functions]
+  node_bundler = "esbuild"
+
+# --- Redirection des routes API vers les fonctions serverless ---
+[[redirects]]
+  from = "/api/config"
+  to = "/.netlify/functions/config"
+  status = 200
+
+[[redirects]]
+  from = "/api/checkout"
+  to = "/.netlify/functions/checkout"
+  status = 200
+
+[[redirects]]
+  from = "/api/verify/:token"
+  to = "/.netlify/functions/verify?token=:token"
+  status = 200
+
+[[redirects]]
+  from = "/api/paydunya/ipn"
+  to = "/.netlify/functions/ipn"
+  status = 200
