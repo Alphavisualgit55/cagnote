@@ -324,6 +324,32 @@ footer {
 }
 .hidden { display: none !important; }
 
+/* ---------- Bouton WhatsApp flottant ---------- */
+.wa-float {
+  position: fixed;
+  right: 20px;
+  bottom: 20px;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: linear-gradient(180deg, #29d067, #1faf53);
+  color: #fff;
+  text-decoration: none;
+  font-weight: 700;
+  font-size: 0.92rem;
+  padding: 13px 20px;
+  border-radius: 999px;
+  box-shadow: 0 12px 30px rgba(46, 204, 113, 0.4);
+  transition: transform 0.15s ease;
+}
+.wa-float:hover { transform: translateY(-2px); }
+.wa-float .icon { font-size: 1.2rem; }
+@media (max-width: 560px) {
+  .wa-float span.txt { display: none; }
+  .wa-float { padding: 14px 16px; }
+}
+
 .spinner {
   width: 42px;
   height: 42px;

@@ -59,7 +59,7 @@ app.get('/api/config', (_req, res) => {
   res.json({
     price: PRICE_FCFA,
     whatsappGroupUrl: process.env.WHATSAPP_GROUP_URL || '',
-    supportWhatsapp: process.env.SUPPORT_WHATSAPP || '',
+    supportWhatsapp: process.env.SUPPORT_WHATSAPP || '+221755274787',
     promoDeadline: process.env.PROMO_DEADLINE || '2026-08-05T23:59:59',
   });
 });
