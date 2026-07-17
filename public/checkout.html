@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Commande — Formation Ecom Booster</title>
+  <meta name="robots" content="noindex" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+  <div class="promo-bar">
+    🔥 OFFRE DE LANCEMENT : <strong>100.000 FCFA</strong> — promo valable jusqu'au <strong>5 août</strong> seulement !
+  </div>
+
+  <div class="container">
+    <header class="site-header">
+      <a class="logo" href="index.html">ECOM<span>BOOSTER</span></a>
+    </header>
+
+    <div class="checkout-wrap">
+
+      <!-- Formulaire -->
+      <div class="card">
+        <h2>📝 Finalise ton inscription</h2>
+        <p class="hint">
+          Renseigne tes informations : elles nous servent à t'envoyer tes accès à la formation
+          par email et sur WhatsApp juste après ton paiement.
+        </p>
+
+        <form id="checkout-form" novalidate>
+          <div class="form-grid two">
+            <div class="field">
+              <label for="prenom">Prénom *</label>
+              <input type="text" id="prenom" name="prenom" autocomplete="given-name" required placeholder="Ex : Aminata" />
+            </div>
+            <div class="field">
+              <label for="nom">Nom *</label>
+              <input type="text" id="nom" name="nom" autocomplete="family-name" required placeholder="Ex : Diallo" />
+            </div>
+          </div>
+
+          <div class="form-grid" style="margin-top:16px;">
+            <div class="field">
+              <label for="email">Adresse email *</label>
+              <input type="email" id="email" name="email" autocomplete="email" required placeholder="Ex : aminata@email.com" />
+              <div class="help">Tes accès à la formation seront envoyés à cette adresse.</div>
+            </div>
+            <div class="field">
+              <label for="whatsapp">Numéro WhatsApp *</label>
+              <input type="tel" id="whatsapp" name="whatsapp" autocomplete="tel" required placeholder="Ex : +221 77 123 45 67" />
+              <div class="help">Avec l'indicatif de ton pays (ex : +221 Sénégal, +225 Côte d'Ivoire, +223 Mali…).</div>
+            </div>
+          </div>
+
+          <div class="form-error" id="form-error"></div>
+
+          <button type="submit" class="btn btn-primary btn-block" id="pay-btn" style="margin-top:24px;">
+            🔒 Payer 100.000 FCFA avec PayDunya
+          </button>
+          <div class="secure-note">🔐 Paiement 100% sécurisé — tu seras redirigé vers PayDunya</div>
+        </form>
+      </div>
+
+      <!-- Récapitulatif -->
+      <div class="card order-summary">
+        <h2>🛒 Ta commande</h2>
+        <p class="hint">Formation Ecom Booster — accès complet</p>
+        <ul>
+          <li>6 modules : sourcing, importation, Shopify, IA, Meta Ads, TikTok</li>
+          <li>3 thèmes premium Shopify offerts</li>
+          <li>Contact transitaire Chine → Afrique</li>
+          <li>10 produits gagnants (+50M FCFA de CA)</li>
+          <li>Accompagnement personnalisé 30 jours</li>
+          <li>1 mois du plan Starter admachine.io</li>
+          <li>Accès à la communauté privée</li>
+        </ul>
+        <div class="total">
+          <span>Total aujourd'hui</span>
+          <span class="amount">100.000 FCFA</span>
+        </div>
+        <div class="payment-methods">
+          <div class="pills">
+            <span class="pill">🟠 Orange Money</span>
+            <span class="pill">🔵 Wave</span>
+            <span class="pill">🟡 MTN MoMo</span>
+            <span class="pill">🟣 Moov Money</span>
+            <span class="pill">💳 Carte bancaire</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <footer>
+    <div class="container">© Ecom Booster — Paiement sécurisé via PayDunya</div>
+  </footer>
+
+  <script src="js/checkout.js"></script>
+</body>
+</html>

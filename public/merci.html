@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Merci — Formation Ecom Booster</title>
+  <meta name="robots" content="noindex" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+  <div class="container">
+    <header class="site-header">
+      <a class="logo" href="index.html">ECOM<span>BOOSTER</span></a>
+    </header>
+  </div>
+
+  <div class="merci-wrap">
+    <div class="container">
+
+      <!-- Vérification en cours -->
+      <div class="card merci-card" id="state-loading">
+        <div class="spinner"></div>
+        <h1>Vérification de ton paiement…</h1>
+        <p>Un instant, nous confirmons ton paiement auprès de PayDunya.</p>
+      </div>
+
+      <!-- Paiement confirmé -->
+      <div class="card merci-card hidden" id="state-success">
+        <div class="icon">🎉</div>
+        <h1>Félicitations <span id="client-prenom"></span>, ton paiement est confirmé !</h1>
+        <p>Bienvenue dans <strong>Ecom Booster</strong>. Voici la suite :</p>
+        <ul class="steps">
+          <li>📧 Tes accès à la formation arrivent sur ton <strong>email</strong>.</li>
+          <li>📱 Tu seras contacté sur ton <strong>numéro WhatsApp</strong> pour rejoindre la communauté privée et démarrer ton accompagnement de 30 jours.</li>
+          <li>🎁 Tes bonus (thèmes Shopify, produits gagnants, contact transitaire, admachine.io) te seront remis dans la communauté.</li>
+        </ul>
+        <a class="btn wa-btn hidden" id="wa-group-btn" href="#" target="_blank" rel="noopener">
+          💬 Rejoindre la communauté WhatsApp
+        </a>
+        <p style="margin-top:18px; font-size:0.85rem;">Un souci ? Écris-nous sur WhatsApp : <a id="support-link" href="#" style="color:var(--gold);">notre support</a></p>
+      </div>
+
+      <!-- Paiement non confirmé -->
+      <div class="card merci-card hidden" id="state-pending">
+        <div class="icon">⏳</div>
+        <h1>Paiement en cours de confirmation</h1>
+        <p>
+          Nous n'avons pas encore reçu la confirmation de ton paiement.
+          Si tu viens de payer, patiente quelques instants puis actualise cette page.
+        </p>
+        <p>Si tu n'as pas finalisé ton paiement, tu peux réessayer :</p>
+        <a class="btn btn-primary" href="checkout.html">↻ Reprendre mon paiement</a>
+      </div>
+
+    </div>
+  </div>
+
+  <footer>
+    <div class="container">© Ecom Booster — Paiement sécurisé via PayDunya</div>
+  </footer>
+
+  <script src="js/merci.js"></script>
+</body>
+</html>
