@@ -38,4 +38,15 @@
 
   revealEls.forEach(function (el) { io.observe(el); });
   counters.forEach(function (el) { io.observe(el); });
+
+  // --- Barre CTA collante : apparaît après le premier écran ---
+  var sticky = document.getElementById('sticky-cta');
+  if (sticky) {
+    var onScroll = function () {
+      if (window.scrollY > window.innerHeight * 0.9) sticky.classList.add('show');
+      else sticky.classList.remove('show');
+    };
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+  }
 })();
