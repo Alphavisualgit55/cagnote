@@ -729,6 +729,55 @@ section { perspective: 1200px; }
 }
 .lightbox .close:hover { background: rgba(255, 255, 255, 0.18); }
 
+/* ============================================================
+   V6 — FX dynamiques : particules, parallaxe, glare, magnétisme
+   ============================================================ */
+
+/* Canvas de particules dans le hero */
+#hero-particles { position: absolute; inset: 0; z-index: 0; pointer-events: none; }
+
+/* Halo lumineux qui suit le curseur (desktop) */
+#cursor-glow {
+  position: fixed; z-index: 1; pointer-events: none;
+  width: 560px; height: 560px; border-radius: 50%;
+  background: radial-gradient(circle, rgba(47, 107, 255, 0.14), transparent 60%);
+  transform: translate(-50%, -50%);
+  mix-blend-mode: screen;
+}
+
+/* Reflet lumineux (glare) sur les cartes */
+.glare-host { position: relative; }
+.glare-host .glare {
+  content: ''; position: absolute; inset: -1px; border-radius: inherit; pointer-events: none;
+  background: radial-gradient(420px circle at var(--gx, 50%) var(--gy, 50%), rgba(120, 200, 255, 0.14), transparent 55%);
+  opacity: 0; transition: opacity 0.25s ease; z-index: 1;
+}
+.glare-host:hover .glare { opacity: 1; }
+
+/* Titre du hero animé mot par mot */
+.hero h1 { animation: none; }
+.hero h1 .w {
+  display: inline-block; opacity: 0;
+  animation: wordIn 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
+  animation-delay: calc(var(--i) * 80ms + 120ms);
+  transform-origin: 50% 100%;
+}
+@keyframes wordIn {
+  from { opacity: 0; transform: translateY(34px) rotateX(55deg); }
+  to { opacity: 1; transform: translateY(0) rotateX(0); }
+}
+
+/* Timeline : les points s'allument au passage */
+.tl-item::before { transition: box-shadow 0.4s ease, transform 0.4s ease; }
+.tl-item.lit::before {
+  box-shadow: 0 0 0 6px rgba(47, 107, 255, 0.25), 0 0 26px rgba(76, 201, 255, 0.9);
+  transform: scale(1.15);
+}
+
+/* La parallaxe scroll/souris utilise la propriété `translate`
+   (indépendante de `transform`, donc compatible rotations & animations) */
+[data-pscroll], [data-parallax] { will-change: translate; }
+
 /* Note d'honnêteté */
 .honest {
   max-width: 680px; margin: 30px auto 0; display: flex; gap: 14px; align-items: flex-start;
