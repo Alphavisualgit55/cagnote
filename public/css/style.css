@@ -701,6 +701,34 @@ section { perspective: 1200px; }
 .story-photos .p3 { transform: rotate(-1.2deg); }
 .story-photos .polaroid:hover { transform: rotate(0) scale(1.02); transition: transform 0.3s ease; z-index: 2; }
 
+/* Images de résultats affichées en entier + zoom au clic */
+.result-shot.has-img img { object-fit: contain; background: #05070f; cursor: zoom-in; }
+/* Portrait "Moi, aujourd'hui" affiché en entier */
+.photo-box[data-asset="photo-portrait"] img { object-fit: contain; background: #0a0f1f; cursor: zoom-in; }
+.photo-box.has-img img { cursor: zoom-in; }
+
+/* Visionneuse plein écran (lightbox) */
+.lightbox {
+  position: fixed; inset: 0; z-index: 400;
+  background: rgba(3, 5, 10, 0.93); backdrop-filter: blur(8px);
+  display: flex; align-items: center; justify-content: center; padding: 26px;
+  opacity: 0; pointer-events: none; transition: opacity 0.25s ease;
+}
+.lightbox.open { opacity: 1; pointer-events: auto; }
+.lightbox img {
+  max-width: 94vw; max-height: 90vh; width: auto; height: auto;
+  border-radius: 10px; box-shadow: 0 30px 80px rgba(0, 0, 0, 0.7);
+  cursor: zoom-out; transform: scale(0.96); transition: transform 0.25s ease;
+}
+.lightbox.open img { transform: scale(1); }
+.lightbox .close {
+  position: absolute; top: 18px; right: 20px; z-index: 2;
+  width: 46px; height: 46px; border-radius: 50%; border: 1px solid rgba(255,255,255,0.2);
+  background: rgba(255, 255, 255, 0.08); color: #fff; font-size: 1.4rem; cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+}
+.lightbox .close:hover { background: rgba(255, 255, 255, 0.18); }
+
 /* Note d'honnêteté */
 .honest {
   max-width: 680px; margin: 30px auto 0; display: flex; gap: 14px; align-items: flex-start;

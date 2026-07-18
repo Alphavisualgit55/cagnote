@@ -42,6 +42,23 @@
     }
   }
 
+  // --- Visionneuse plein écran (lightbox) pour les images ---
+  var lightbox = null;
+  function openLightbox(src) {
+    if (!lightbox) {
+      lightbox = document.createElement('div');
+      lightbox.className = 'lightbox';
+      lightbox.innerHTML = '<button class="close" aria-label="Fermer">✕</button><img src="" alt="" />';
+      document.body.appendChild(lightbox);
+      lightbox.addEventListener('click', function () { lightbox.classList.remove('open'); });
+      document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape') lightbox.classList.remove('open');
+      });
+    }
+    lightbox.querySelector('img').src = src;
+    requestAnimationFrame(function () { lightbox.classList.add('open'); });
+  }
+
   // --- Contenus dynamiques : images uploadées via l'admin + réglages ---
   fetch('/api/assets')
     .then(function (r) { return r.ok ? r.json() : null; })
@@ -50,7 +67,7 @@
       var assets = data.assets || {};
       var settings = data.settings || {};
 
-      // Photos & captures de résultats
+      // Photos & captures de résultats (cliquables pour agrandir)
       Object.keys(assets).forEach(function (slot) {
         var box = document.querySelector('[data-asset="' + slot + '"]');
         if (!box) return;
@@ -58,6 +75,10 @@
         img.src = assets[slot];
         img.alt = '';
         img.loading = 'lazy';
+        img.addEventListener('click', function (e) {
+          e.stopPropagation();
+          openLightbox(assets[slot]);
+        });
         box.appendChild(img);
         box.classList.add('has-img');
       });
