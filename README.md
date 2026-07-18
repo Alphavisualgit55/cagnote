@@ -45,10 +45,21 @@ Les redirections mappent `/api/config`, `/api/checkout`, `/api/verify/:token`,
 | `SUPABASE_SERVICE_ROLE_KEY` | Clé **service_role** (secrète) — Supabase → *Project Settings → API Keys* |
 | `APP_BASE_URL` | URL publique du site (ex : `https://ecom-booster.netlify.app`) |
 | `SUPPORT_WHATSAPP` | Numéro WhatsApp du formateur, cliqué par le client après paiement pour recevoir ses accès (déjà `+221755274787` par défaut) |
+| `ADMIN_PASSWORD` | Mot de passe du panneau admin `/admin.html` — **obligatoire** pour utiliser l'admin |
+| `INSTAGRAM_URL` | Lien Instagram (modifiable aussi depuis l'admin, section Réglages) |
 | `PRICE_FCFA` | Prix (par défaut `100000`) |
 | `PROMO_DEADLINE` | Fin de la promo pour le compte à rebours (par défaut 5 août) |
 
 > ⚠️ La clé `service_role` est **secrète** : ne la mets que dans les variables Netlify, jamais dans le code ni le front.
+
+## Panneau admin
+
+`https://ton-site/admin.html` (protégé par `ADMIN_PASSWORD`) :
+
+- **📊 Statistiques** : revenus encaissés, ventes payées, commandes en attente, visiteurs (jour / 7 jours / total).
+- **🧾 Commandes** : liste des acheteurs (facture, nom, email, WhatsApp, montant, statut).
+- **🖼️ Images** : importe tes photos (Dubaï, portrait, travail) et les 8 captures de résultats élèves — elles remplacent instantanément les emplacements sur le site.
+- **⚙️ Réglages** : lien de la vidéo de présentation (YouTube ou .mp4) et lien Instagram.
 
 ## Base de données Supabase
 

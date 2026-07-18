@@ -25,3 +25,18 @@
   from = "/api/paydunya/ipn"
   to = "/.netlify/functions/ipn"
   status = 200
+
+[[redirects]]
+  from = "/api/track"
+  to = "/.netlify/functions/track"
+  status = 200
+
+[[redirects]]
+  from = "/api/assets"
+  to = "/.netlify/functions/assets"
+  status = 200
+
+[[redirects]]
+  from = "/api/admin/:action"
+  to = "/.netlify/functions/admin?action=:action"
+  status = 200
