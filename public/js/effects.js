@@ -62,16 +62,29 @@
         box.classList.add('has-img');
       });
 
-      // Vidéo de présentation (YouTube ou fichier .mp4)
+      // Vidéo de présentation (YouTube, Google Drive ou fichier .mp4)
       var videoUrl = settings.video_url || '';
       var box = document.getElementById('video-box');
       if (box && videoUrl) {
         var yt = videoUrl.match(/(?:youtube\.com\/(?:watch\?v=|shorts\/|embed\/)|youtu\.be\/)([\w-]{6,})/);
+        var drive = videoUrl.match(/drive\.google\.com\/file\/d\/([\w-]+)/);
+        var insta = videoUrl.match(/instagram\.com\/(?:reel|p)\/([\w-]+)/);
         box.innerHTML = '';
         box.style.cursor = 'default';
-        if (yt) {
+        if (insta) {
+          // Reel Instagram : format vertical
+          box.classList.add('vertical');
+          var ig = document.createElement('iframe');
+          ig.src = 'https://www.instagram.com/reel/' + insta[1] + '/embed/';
+          ig.allow = 'encrypted-media; picture-in-picture';
+          ig.allowFullscreen = true;
+          ig.setAttribute('scrolling', 'no');
+          box.appendChild(ig);
+        } else if (yt || drive) {
           var iframe = document.createElement('iframe');
-          iframe.src = 'https://www.youtube.com/embed/' + yt[1];
+          iframe.src = yt
+            ? 'https://www.youtube.com/embed/' + yt[1]
+            : 'https://drive.google.com/file/d/' + drive[1] + '/preview';
           iframe.allow = 'accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture';
           iframe.allowFullscreen = true;
           box.appendChild(iframe);
