@@ -3,6 +3,8 @@ const core = require('../../lib/core');
 // Endpoint admin multiplexé : /api/admin/{stats|upload|delete-asset|setting}
 exports.handler = async (event) => {
   const key = event.headers['x-admin-key'] || '';
+  const h = event.headers || {};
+  const ip = (h['x-nf-client-connection-ip'] || (h['x-forwarded-for'] || '').split(',')[0] || '').trim() || 'unknown';
   const action = (event.queryStringParameters || {}).action
     || (event.path || '').split('/').filter(Boolean).pop();
 
@@ -11,13 +13,13 @@ exports.handler = async (event) => {
 
   let result;
   if (action === 'stats') {
-    result = await core.adminStats(key);
+    result = await core.adminStats(key, ip);
   } else if (action === 'upload') {
-    result = await core.adminUpload(key, body.slot, body.data, body.contentType);
+    result = await core.adminUpload(key, ip, body.slot, body.data, body.contentType);
   } else if (action === 'delete-asset') {
-    result = await core.adminDeleteAsset(key, body.slot);
+    result = await core.adminDeleteAsset(key, ip, body.slot);
   } else if (action === 'setting') {
-    result = await core.adminSetSetting(key, body.name, body.value);
+    result = await core.adminSetSetting(key, ip, body.name, body.value);
   } else {
     result = { statusCode: 404, body: { error: `Action admin inconnue : ${action}` } };
   }

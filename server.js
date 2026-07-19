@@ -51,23 +51,25 @@ app.get('/api/assets', async (_req, res) => {
 
 // --- Panneau admin ---
 const adminKey = (req) => req.get('x-admin-key') || '';
+const clientIp = (req) =>
+  (req.headers['x-forwarded-for'] || '').split(',')[0].trim() || req.ip || 'unknown';
 
 app.get('/api/admin/stats', async (req, res) => {
-  send(res, await core.adminStats(adminKey(req)));
+  send(res, await core.adminStats(adminKey(req), clientIp(req)));
 });
 
 app.post('/api/admin/upload', async (req, res) => {
   const { slot, data, contentType } = req.body || {};
-  send(res, await core.adminUpload(adminKey(req), slot, data, contentType));
+  send(res, await core.adminUpload(adminKey(req), clientIp(req), slot, data, contentType));
 });
 
 app.post('/api/admin/delete-asset', async (req, res) => {
-  send(res, await core.adminDeleteAsset(adminKey(req), (req.body || {}).slot));
+  send(res, await core.adminDeleteAsset(adminKey(req), clientIp(req), (req.body || {}).slot));
 });
 
 app.post('/api/admin/setting', async (req, res) => {
   const { name, value } = req.body || {};
-  send(res, await core.adminSetSetting(adminKey(req), name, value));
+  send(res, await core.adminSetSetting(adminKey(req), clientIp(req), name, value));
 });
 
 app.listen(PORT, () => {
