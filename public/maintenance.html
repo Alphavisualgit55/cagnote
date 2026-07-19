@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ecom Booster — Bientôt de retour</title>
+  <meta name="robots" content="noindex" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Sora:wght@600;700;800&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body {
+      font-family:'Manrope',system-ui,sans-serif; color:#eef3ff; min-height:100vh;
+      display:flex; align-items:center; justify-content:center; text-align:center; padding:24px;
+      background:
+        radial-gradient(900px 500px at 80% -10%, rgba(47,107,255,0.22), transparent 60%),
+        radial-gradient(700px 460px at 10% 110%, rgba(76,201,255,0.14), transparent 60%),
+        #060b18;
+      overflow:hidden;
+    }
+    .grid {
+      position:fixed; left:-20%; right:-20%; bottom:-6%; height:48%; z-index:-1;
+      background:
+        linear-gradient(transparent,#060b18 88%),
+        repeating-linear-gradient(90deg, rgba(76,201,255,0.12) 0 1px, transparent 1px 46px),
+        repeating-linear-gradient(0deg, rgba(76,201,255,0.12) 0 1px, transparent 1px 46px);
+      transform:perspective(500px) rotateX(64deg); transform-origin:center top;
+    }
+    .box { max-width:560px; }
+    .logo { font-family:'Sora'; font-weight:800; letter-spacing:1px; font-size:1.3rem; margin-bottom:28px; }
+    .logo span { color:transparent; background:linear-gradient(92deg,#2f6bff,#4cc9ff 60%,#7cf3ff); -webkit-background-clip:text; background-clip:text; }
+    .badge {
+      display:inline-block; background:rgba(47,107,255,0.14); border:1px solid rgba(76,201,255,0.4);
+      color:#4cc9ff; font-weight:700; font-size:0.85rem; padding:8px 18px; border-radius:999px; margin-bottom:22px;
+    }
+    h1 { font-family:'Anton','Arial Narrow',sans-serif; font-weight:400; letter-spacing:0.5px;
+         font-size:clamp(2.2rem,7vw,3.4rem); line-height:1.05; margin-bottom:16px; }
+    h1 .hl { color:transparent; background:linear-gradient(92deg,#2f6bff,#4cc9ff 60%,#7cf3ff); -webkit-background-clip:text; background-clip:text; }
+    p { color:#9db0d4; font-size:1.05rem; line-height:1.6; margin-bottom:12px; }
+    p strong { color:#eef3ff; }
+    .wa {
+      display:inline-flex; align-items:center; gap:10px; margin-top:22px; text-decoration:none;
+      background:linear-gradient(180deg,#29d067,#1faf53); color:#fff; font-family:'Sora'; font-weight:800;
+      font-size:1rem; padding:15px 30px; border-radius:999px; box-shadow:0 12px 30px rgba(46,204,113,0.35);
+    }
+    .foot { margin-top:30px; color:#63739c; font-size:0.85rem; }
+  </style>
+</head>
+<body>
+  <div class="grid"></div>
+  <div class="box">
+    <div class="logo">ECOM<span>BOOSTER</span></div>
+    <div class="badge">🔧 Maintenance en cours</div>
+    <h1>NOUS REVENONS<br><span class="hl">TRÈS BIENTÔT</span></h1>
+    <p>Les inscriptions sont <strong>temporairement fermées</strong>, le temps de préparer quelque chose de mieux pour toi.</p>
+    <p>Reviens dans quelques instants — et garde ta place au chaud. 🚀</p>
+    <a class="wa" href="https://wa.me/221755274787?text=Bonjour%2C%20je%20veux%20des%20infos%20sur%20la%20formation%20Ecom%20Booster" target="_blank" rel="noopener">💬 Me contacter sur WhatsApp</a>
+    <div class="foot">© <span id="y"></span> Ecom Booster</div>
+  </div>
+  <script>document.getElementById('y').textContent=new Date().getFullYear();</script>
+</body>
+</html>

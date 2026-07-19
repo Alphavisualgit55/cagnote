@@ -5,6 +5,38 @@
 [functions]
   node_bundler = "esbuild"
 
+# =====================================================================
+#  MODE MAINTENANCE — tunnel de vente temporairement fermé
+#  Pour ROUVRIR le site : supprime (ou commente avec #) ce bloc,
+#  puis redéploie. L'admin (/admin.html) reste toujours accessible.
+# =====================================================================
+[[redirects]]
+  from = "/"
+  to = "/maintenance.html"
+  status = 302
+  force = true
+
+[[redirects]]
+  from = "/index.html"
+  to = "/maintenance.html"
+  status = 302
+  force = true
+
+[[redirects]]
+  from = "/checkout.html"
+  to = "/maintenance.html"
+  status = 302
+  force = true
+
+[[redirects]]
+  from = "/merci.html"
+  to = "/maintenance.html"
+  status = 302
+  force = true
+# =====================================================================
+#  FIN DU MODE MAINTENANCE
+# =====================================================================
+
 # --- Redirection des routes API vers les fonctions serverless ---
 [[redirects]]
   from = "/api/config"
