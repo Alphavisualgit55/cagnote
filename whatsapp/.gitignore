@@ -1,0 +1,4 @@
+# Ne pas commit les donnees clients (numeros de telephone) ni les secrets
+.env
+clients_easysell.csv
+envoi_*.csv
