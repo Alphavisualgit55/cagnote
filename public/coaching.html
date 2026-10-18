@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Ecom Scaling — Coaching privé 1 à 10M/mois</title>
+<meta name="description" content="Coaching privé e-commerce : passe de 1M à 5M de chiffre d'affaires en 30 jours. Résultat garanti, 100% privé, stratégies uniques. Afrique." />
+<meta name="robots" content="index,follow" />
+<meta property="og:title" content="Ecom Scaling — Coaching privé e-commerce" />
+<meta property="og:description" content="De 1M à 5M FCFA en 30 jours. Résultat garanti, accompagnement 100% privé 1v1." />
+<meta property="og:type" content="website" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Sora:wght@600;700;800&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+<style>
+  *{margin:0;padding:0;box-sizing:border-box;}
+  :root{
+    --bg:#060b18; --bg2:#0d1730; --card:#101c3a; --line:rgba(148,175,255,0.16);
+    --text:#eef3ff; --muted:#9db0d4; --blue:#2f6bff; --cyan:#4cc9ff; --green:#22c55e; --gold:#ffb43a;
+    --grad:linear-gradient(92deg,#2f6bff,#4cc9ff 60%,#7cf3ff);
+    --wa:#25D366;
+  }
+  html{scroll-behavior:smooth;-webkit-text-size-adjust:100%;}
+  body{font-family:'Manrope',system-ui,sans-serif;color:var(--text);background:var(--bg);line-height:1.5;overflow-x:hidden;}
+  .wrap{max-width:1120px;margin:0 auto;padding:0 20px;}
+  h1,h2,h3,.brand{font-family:'Sora',sans-serif;}
+  .display{font-family:'Anton','Arial Narrow',sans-serif;font-weight:400;letter-spacing:.5px;}
+  a{color:inherit;}
+  .hl{color:transparent;background:var(--grad);-webkit-background-clip:text;background-clip:text;}
+
+  /* NAV */
+  .nav{position:sticky;top:0;z-index:50;background:rgba(6,11,24,.82);backdrop-filter:blur(10px);border-bottom:1px solid var(--line);}
+  .nav .wrap{display:flex;align-items:center;justify-content:space-between;height:62px;}
+  .brand{font-weight:800;letter-spacing:1px;font-size:1.05rem;}
+  .brand span{color:transparent;background:var(--grad);-webkit-background-clip:text;background-clip:text;}
+  .nav .cta{display:inline-flex;align-items:center;gap:8px;background:var(--wa);color:#042012;font-family:'Sora';font-weight:800;font-size:.85rem;padding:9px 16px;border-radius:999px;text-decoration:none;}
+
+  /* HERO */
+  .hero{position:relative;padding:68px 0 48px;overflow:hidden;
+    background:
+      radial-gradient(760px 440px at 82% -8%, rgba(47,107,255,.22), transparent 60%),
+      radial-gradient(620px 420px at 6% 112%, rgba(76,201,255,.13), transparent 60%),
+      var(--bg);}
+  .grid-floor{position:absolute;left:-20%;right:-20%;bottom:-8%;height:44%;z-index:0;
+    background:linear-gradient(transparent,var(--bg) 88%),
+      repeating-linear-gradient(90deg,rgba(76,201,255,.1) 0 1px,transparent 1px 46px),
+      repeating-linear-gradient(0deg,rgba(76,201,255,.1) 0 1px,transparent 1px 46px);
+    transform:perspective(500px) rotateX(64deg);transform-origin:center top;}
+  .hero .wrap{position:relative;z-index:2;text-align:center;}
+  .pill{display:inline-flex;align-items:center;gap:8px;background:rgba(47,107,255,.14);border:1px solid rgba(76,201,255,.4);color:var(--cyan);font-weight:700;font-size:.82rem;padding:8px 18px;border-radius:999px;margin-bottom:22px;}
+  .hero h1{font-size:clamp(2.4rem,7vw,4.4rem);line-height:.98;margin-bottom:18px;}
+  .hero .sub{color:var(--muted);font-size:clamp(1rem,2.4vw,1.25rem);max-width:720px;margin:0 auto 10px;}
+  .hero .sub strong{color:var(--text);}
+  .hero-ctas{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:28px;}
+  .btn{display:inline-flex;align-items:center;gap:9px;text-decoration:none;font-family:'Sora';font-weight:800;font-size:1rem;padding:15px 28px;border-radius:999px;transition:transform .15s ease;}
+  .btn:hover{transform:translateY(-2px);}
+  .btn-wa{background:var(--wa);color:#042012;box-shadow:0 14px 30px rgba(37,211,102,.3);}
+  .btn-ghost{background:transparent;color:var(--text);border:1px solid var(--line);}
+  .trust-row{display:flex;gap:26px;justify-content:center;flex-wrap:wrap;margin-top:34px;color:var(--muted);font-size:.9rem;}
+  .trust-row b{color:var(--text);}
+
+  /* GARANTIE */
+  .guarantee{background:linear-gradient(160deg,rgba(34,197,94,.14),rgba(34,197,94,.04));border-top:1px solid rgba(34,197,94,.3);border-bottom:1px solid rgba(34,197,94,.3);padding:34px 0;}
+  .guarantee .wrap{display:flex;align-items:center;gap:22px;flex-wrap:wrap;justify-content:center;text-align:center;}
+  .guarantee .shield{font-size:2.6rem;line-height:1;}
+  .guarantee h2{font-size:clamp(1.3rem,3.4vw,1.9rem);margin-bottom:6px;color:var(--green);}
+  .guarantee p{color:var(--muted);max-width:640px;}
+  .guarantee p strong{color:var(--text);}
+
+  /* SECTIONS */
+  section{padding:58px 0;}
+  .kick{color:var(--cyan);font-weight:800;letter-spacing:3px;text-transform:uppercase;font-size:.8rem;text-align:center;margin-bottom:10px;}
+  .h-sec{font-size:clamp(1.7rem,4.5vw,2.6rem);text-align:center;line-height:1.1;margin-bottom:14px;}
+  .lead{color:var(--muted);text-align:center;max-width:680px;margin:0 auto 34px;font-size:1.05rem;}
+
+  /* POUR QUI */
+  .cols{display:grid;grid-template-columns:1fr 1fr;gap:18px;max-width:900px;margin:0 auto;}
+  .col{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:26px;}
+  .col h3{font-size:1.15rem;margin-bottom:14px;display:flex;align-items:center;gap:10px;}
+  .col.ok h3{color:var(--green);} .col.no h3{color:#ff7a7a;}
+  .col ul{list-style:none;display:flex;flex-direction:column;gap:11px;}
+  .col li{display:flex;gap:10px;color:var(--muted);font-size:.97rem;line-height:1.45;}
+  .col li::before{content:"";flex-shrink:0;width:18px;}
+  .col.ok li::before{content:"✓";color:var(--green);font-weight:800;}
+  .col.no li::before{content:"✕";color:#ff7a7a;font-weight:800;}
+
+  /* TIERS */
+  .tiers{display:grid;grid-template-columns:repeat(auto-fit,minmax(215px,1fr));gap:16px;}
+  .tier{position:relative;background:var(--card);border:1px solid var(--line);border-radius:18px;padding:26px 22px;display:flex;flex-direction:column;}
+  .tier.feat{border-color:rgba(76,201,255,.6);box-shadow:0 0 0 1px rgba(76,201,255,.3),0 20px 50px rgba(47,107,255,.18);}
+  .tier .tag{position:absolute;top:-11px;left:50%;transform:translateX(-50%);background:var(--grad);color:#051023;font-family:'Sora';font-weight:800;font-size:.68rem;letter-spacing:.5px;padding:5px 14px;border-radius:999px;white-space:nowrap;text-transform:uppercase;}
+  .tier .lvl{color:var(--muted);font-size:.8rem;font-weight:700;text-transform:uppercase;letter-spacing:1px;}
+  .tier .obj{font-family:'Anton';font-size:2.3rem;line-height:1;margin:8px 0 2px;}
+  .tier .obj small{font-size:.9rem;color:var(--cyan);font-family:'Sora';font-weight:700;}
+  .tier .in{color:var(--muted);font-size:.85rem;margin-bottom:16px;}
+  .tier .pre{background:var(--bg2);border:1px solid var(--line);border-radius:10px;padding:10px 12px;font-size:.82rem;color:var(--muted);margin-bottom:16px;}
+  .tier .pre b{color:var(--text);display:block;font-size:.72rem;text-transform:uppercase;letter-spacing:.5px;color:var(--cyan);margin-bottom:2px;}
+  .tier .price{margin-top:auto;}
+  .tier .price .v{font-family:'Sora';font-weight:800;font-size:1.5rem;}
+  .tier .price .c{color:var(--muted);font-size:.82rem;margin-bottom:14px;}
+  .tier .pick{display:block;text-align:center;text-decoration:none;background:linear-gradient(180deg,#3f7dff,#1e50e0);color:#fff;font-family:'Sora';font-weight:800;font-size:.9rem;padding:13px;border-radius:12px;transition:filter .15s;}
+  .tier.feat .pick{background:var(--wa);color:#042012;}
+  .tier .pick:hover{filter:brightness(1.08);}
+
+  /* BONUS */
+  .bonus{max-width:820px;margin:28px auto 0;background:linear-gradient(160deg,rgba(255,180,58,.12),rgba(255,180,58,.03));border:1px solid rgba(255,180,58,.4);border-radius:18px;padding:26px 28px;display:flex;align-items:center;gap:20px;flex-wrap:wrap;}
+  .bonus .ic{font-size:2.4rem;}
+  .bonus h3{color:var(--gold);font-size:1.2rem;margin-bottom:4px;}
+  .bonus p{color:var(--muted);font-size:.95rem;}
+  .bonus .plus{margin-left:auto;font-family:'Anton';font-size:1.5rem;color:var(--gold);white-space:nowrap;}
+
+  /* SUSPENDU */
+  .suspend{max-width:820px;margin:18px auto 0;border:1px dashed var(--line);border-radius:16px;padding:20px 24px;text-align:center;color:var(--muted);}
+  .suspend b{color:var(--text);}
+
+  /* PROCESS */
+  .steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px;}
+  .step{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:24px;}
+  .step .n{font-family:'Anton';font-size:1.6rem;width:44px;height:44px;display:flex;align-items:center;justify-content:center;border-radius:12px;background:var(--grad);color:#051023;margin-bottom:14px;}
+  .step h3{font-size:1.05rem;margin-bottom:6px;}
+  .step p{color:var(--muted);font-size:.92rem;}
+
+  /* FAQ */
+  .faq{max-width:780px;margin:0 auto;display:flex;flex-direction:column;gap:12px;}
+  details{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:4px 20px;}
+  summary{cursor:pointer;list-style:none;padding:16px 0;font-family:'Sora';font-weight:700;font-size:1rem;display:flex;justify-content:space-between;align-items:center;gap:12px;}
+  summary::-webkit-details-marker{display:none;}
+  summary::after{content:"+";color:var(--cyan);font-size:1.4rem;font-weight:700;}
+  details[open] summary::after{content:"–";}
+  details p{color:var(--muted);padding:0 0 18px;font-size:.95rem;line-height:1.55;}
+
+  /* FINAL */
+  .final{position:relative;text-align:center;overflow:hidden;
+    background:radial-gradient(700px 400px at 50% 120%, rgba(47,107,255,.2), transparent 60%),var(--bg2);}
+  .final h2{font-size:clamp(1.9rem,5vw,3rem);margin-bottom:14px;line-height:1.05;}
+  .final p{color:var(--muted);max-width:620px;margin:0 auto 26px;font-size:1.05rem;}
+
+  footer{border-top:1px solid var(--line);padding:30px 0;text-align:center;color:#63739c;font-size:.85rem;}
+  footer a{color:var(--cyan);text-decoration:none;}
+
+  @media(max-width:620px){
+    .cols{grid-template-columns:1fr;}
+    .guarantee .wrap{flex-direction:column;}
+    .bonus .plus{margin:0;}
+    section{padding:46px 0;}
+  }
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="wrap">
+    <div class="brand">ECOM<span>SCALING</span></div>
+    <a class="cta" href="#offres">Voir les offres →</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<header class="hero">
+  <div class="grid-floor"></div>
+  <div class="wrap">
+    <span class="pill">🚀 Coaching privé e-commerce · Afrique</span>
+    <h1 class="display">PASSE DE <span class="hl">1M À 5M</span><br>EN 30 JOURS</h1>
+    <p class="sub">Un accompagnement <strong>100% privé</strong>, en 1 contre 1, pour scaler ton business e-commerce avec des <strong>stratégies uniques</strong> et un passage au <strong>branding</strong>. Pas de théorie — du chiffre d'affaires réel encaissé.</p>
+    <div class="hero-ctas">
+      <a class="btn btn-wa" href="https://wa.me/221755274787?text=Bonjour%2C%20je%20veux%20des%20infos%20sur%20le%20coaching%20Ecom%20Scaling" target="_blank" rel="noopener">💬 Candidater sur WhatsApp</a>
+      <a class="btn btn-ghost" href="#offres">Découvrir les 5 niveaux</a>
+    </div>
+    <div class="trust-row">
+      <span>✅ <b>Résultat garanti</b></span>
+      <span>🔒 <b>100% privé</b> (1v1 Google Meet)</span>
+      <span>💬 Suivi <b>WhatsApp</b></span>
+      <span>🎁 Bonus <b>Ecom Booster</b></span>
+    </div>
+  </div>
+</header>
+
+<!-- GARANTIE -->
+<div class="guarantee">
+  <div class="wrap">
+    <div class="shield">🛡️</div>
+    <div>
+      <h2 class="display">RÉSULTAT GARANTI</h2>
+      <p>Tant que ton objectif n'est pas atteint, <strong>le coaching ne s'arrête pas</strong>. Et on parle de <strong>chiffre d'affaires réel encaissé</strong> — pas de promesses en l'air.</p>
+    </div>
+  </div>
+</div>
+
+<!-- POUR QUI -->
+<section>
+  <div class="wrap">
+    <div class="kick">Avant de candidater</div>
+    <h2 class="h-sec">Ce coaching est-il fait pour toi ?</h2>
+    <p class="lead">Ecom Scaling n'est pas pour les débutants. C'est un accélérateur pour ceux qui <strong>vendent déjà</strong> et veulent passer un cap.</p>
+    <div class="cols">
+      <div class="col ok">
+        <h3>✅ Pour toi si…</h3>
+        <ul>
+          <li>Tu fais déjà <strong style="color:var(--text)">200 à 300k/mois</strong> de CA en e-commerce minimum</li>
+          <li>Tu maîtrises les bases : gestion des commandes, création de site</li>
+          <li>Tu as déjà une boutique <strong style="color:var(--text)">Shopify</strong></li>
+          <li>Tu sais lancer des campagnes publicitaires</li>
+          <li>Tu veux une méthode <strong style="color:var(--text)">privée</strong> et des stratégies qu'on ne partage pas publiquement</li>
+        </ul>
+      </div>
+      <div class="col no">
+        <h3>✕ Pas encore pour toi si…</h3>
+        <ul>
+          <li>Tu débutes totalement et tu n'as jamais vendu en ligne</li>
+          <li>Tu n'as pas encore de boutique ni de produit qui tourne</li>
+          <li>Tu ne lances pas encore de publicités</li>
+          <li>Tu cherches une formation de base</li>
+          <li>👉 Dans ce cas, commence par <strong style="color:var(--gold)">Ecom Booster</strong> d'abord.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- OFFRES -->
+<section id="offres" style="background:var(--bg2);">
+  <div class="wrap">
+    <div class="kick">Les niveaux</div>
+    <h2 class="h-sec">Choisis ton objectif</h2>
+    <p class="lead">5 niveaux selon où tu en es. Plus ton CA actuel est élevé, plus l'objectif visé est grand. Chaque niveau est <strong>garanti</strong>.</p>
+    <div class="tiers">
+
+      <div class="tier feat">
+        <div class="tag">Le plus demandé</div>
+        <div class="lvl">Niveau 1</div>
+        <div class="obj display">1M<small> FCFA</small></div>
+        <div class="in">de CA en 30 jours</div>
+        <div class="pre"><b>Prérequis</b>Déjà 200–300k/mois de CA</div>
+        <div class="price">
+          <div class="v">450 000 F</div>
+          <div class="c">paiement unique</div>
+          <a class="pick" href="https://wa.me/221755274787?text=Bonjour%2C%20je%20veux%20rejoindre%20le%20Coaching%20Niveau%201%20(objectif%201M%20en%2030%20jours).%20Mon%20CA%20actuel%20est%20d'environ%20___%2Fmois." target="_blank" rel="noopener">Candidater →</a>
+        </div>
+      </div>
+
+      <div class="tier">
+        <div class="lvl">Niveau 2</div>
+        <div class="obj display">2M<small> FCFA</small></div>
+        <div class="in">de CA en 30 jours</div>
+        <div class="pre"><b>Prérequis</b>Min. 800k/mois de CA</div>
+        <div class="price">
+          <div class="v">655 000 F</div>
+          <div class="c">≈ 1 000 € · paiement unique</div>
+          <a class="pick" href="https://wa.me/221755274787?text=Bonjour%2C%20je%20veux%20rejoindre%20le%20Coaching%20Niveau%202%20(objectif%202M%20en%2030%20jours).%20Mon%20CA%20actuel%20est%20d'environ%20___%2Fmois." target="_blank" rel="noopener">Candidater →</a>
+        </div>
+      </div>
+
+      <div class="tier">
+        <div class="lvl">Niveau 3</div>
+        <div class="obj display">3M<small> FCFA</small></div>
+        <div class="in">de CA en 30 jours</div>
+        <div class="pre"><b>Prérequis</b>Min. 1,5M/mois de CA</div>
+        <div class="price">
+          <div class="v">1 000 000 F</div>
+          <div class="c">paiement unique</div>
+          <a class="pick" href="https://wa.me/221755274787?text=Bonjour%2C%20je%20veux%20rejoindre%20le%20Coaching%20Niveau%203%20(objectif%203M%20en%2030%20jours).%20Mon%20CA%20actuel%20est%20d'environ%20___%2Fmois." target="_blank" rel="noopener">Candidater →</a>
+        </div>
+      </div>
+
+      <div class="tier">
+        <div class="lvl">Niveau 4</div>
+        <div class="obj display">4M<small> FCFA</small></div>
+        <div class="in">de CA en 30 jours</div>
+        <div class="pre"><b>Prérequis</b>Min. 2M/mois de CA</div>
+        <div class="price">
+          <div class="v">1 500 000 F</div>
+          <div class="c">paiement unique</div>
+          <a class="pick" href="https://wa.me/221755274787?text=Bonjour%2C%20je%20veux%20rejoindre%20le%20Coaching%20Niveau%204%20(objectif%204M%20en%2030%20jours).%20Mon%20CA%20actuel%20est%20d'environ%20___%2Fmois." target="_blank" rel="noopener">Candidater →</a>
+        </div>
+      </div>
+
+      <div class="tier">
+        <div class="lvl">Niveau 5</div>
+        <div class="obj display">5M<small> FCFA</small></div>
+        <div class="in">de CA en 30 jours</div>
+        <div class="pre"><b>Prérequis</b>Min. 3M/mois de CA</div>
+        <div class="price">
+          <div class="v">2 000 000 F</div>
+          <div class="c">paiement unique</div>
+          <a class="pick" href="https://wa.me/221755274787?text=Bonjour%2C%20je%20veux%20rejoindre%20le%20Coaching%20Niveau%205%20(objectif%205M%20en%2030%20jours).%20Mon%20CA%20actuel%20est%20d'environ%20___%2Fmois." target="_blank" rel="noopener">Candidater →</a>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- BONUS -->
+    <div class="bonus">
+      <div class="ic">🎁</div>
+      <div>
+        <h3>Bonus : accès à Ecom Booster</h3>
+        <p>Pour <strong style="color:var(--text)">+50 000F</strong> seulement, ajoute l'accès complet à la formation <strong style="color:var(--text)">Ecom Booster</strong> à n'importe quel coaching.</p>
+      </div>
+      <div class="plus">+50 000F</div>
+    </div>
+
+    <!-- SUSPENDU -->
+    <div class="suspend">
+      ⏸️ Le coaching <b>10M en 30 jours</b> est <b>temporairement suspendu</b> — de retour en <b>février, inshallah</b>. Laisse-moi un message sur WhatsApp pour être prévenu en priorité de sa réouverture.
+    </div>
+  </div>
+</section>
+
+<!-- PROCESS -->
+<section>
+  <div class="wrap">
+    <div class="kick">Comment ça se passe</div>
+    <h2 class="h-sec">Un accompagnement 100% privé</h2>
+    <div class="steps">
+      <div class="step"><div class="n">1</div><h3>Tu candidates</h3><p>Tu m'écris sur WhatsApp avec ton niveau de CA actuel. On vérifie ensemble que tu es prêt pour le bon niveau.</p></div>
+      <div class="step"><div class="n">2</div><h3>Cours 1v1 en Google Meet</h3><p>Des sessions privées en visio, rien que toi et moi. On construit ta stratégie sur-mesure, pas un cours générique.</p></div>
+      <div class="step"><div class="n">3</div><h3>Suivi sur WhatsApp</h3><p>Entre les sessions, on continue sur WhatsApp avec des stratégies uniques, au jour le jour, jusqu'à l'objectif.</p></div>
+      <div class="step"><div class="n">4</div><h3>Branding &amp; scaling</h3><p>On fait passer ton business en vraie marque et on scale ton chiffre d'affaires — jusqu'à atteindre l'objectif garanti.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section style="background:var(--bg2);">
+  <div class="wrap">
+    <div class="kick">Questions fréquentes</div>
+    <h2 class="h-sec">Tout ce que tu dois savoir</h2>
+    <div class="faq">
+      <details open><summary>C'est quoi exactement la garantie ?</summary><p>Tant que tu n'as pas atteint l'objectif de ton niveau (par ex. 1M de CA pour le niveau 1), le coaching ne s'arrête pas. On continue à travailler ensemble. L'objectif se mesure en <strong>chiffre d'affaires réel encaissé</strong>, pas en promesses.</p></details>
+      <details><summary>Je débute, je peux rejoindre ?</summary><p>Non, pas encore. Il faut déjà faire minimum 200–300k/mois de CA, maîtriser les bases (commandes, site), avoir une boutique Shopify et savoir lancer des pubs. Si tu débutes, commence par <strong>Ecom Booster</strong> — tu pourras ensuite passer au coaching.</p></details>
+      <details><summary>Quel niveau choisir ?</summary><p>Ça dépend de ton CA mensuel actuel : 200–300k → niveau 1, 800k → niveau 2, 1,5M → niveau 3, 2M → niveau 4, 3M → niveau 5. Si tu hésites, écris-moi sur WhatsApp, on choisit ensemble.</p></details>
+      <details><summary>Comment je paie ?</summary><p>Tu me contactes d'abord sur WhatsApp pour qu'on valide que tu es au bon niveau. Ensuite je t'envoie les modalités de paiement. C'est un paiement unique par coaching.</p></details>
+      <details><summary>Et le bonus Ecom Booster ?</summary><p>Pour 50 000F de plus ajoutés à n'importe quel coaching, tu obtiens l'accès complet à la formation Ecom Booster en bonus. Précise-le-moi quand tu candidates.</p></details>
+      <details><summary>Le coaching 10M, c'est pour quand ?</summary><p>Il est suspendu pour le moment, de retour en février inshallah. Écris-moi sur WhatsApp pour être prévenu en priorité dès sa réouverture.</p></details>
+    </div>
+  </div>
+</section>
+
+<!-- FINAL -->
+<section class="final">
+  <div class="wrap">
+    <span class="pill">🔒 Places limitées — accompagnement privé</span>
+    <h2 class="display">PRÊT À <span class="hl">SCALER</span> ?</h2>
+    <p>Comme c'est du 100% privé en 1 contre 1, je ne peux accompagner qu'un nombre limité de personnes à la fois. Si tu remplis les conditions, candidate maintenant.</p>
+    <a class="btn btn-wa" href="https://wa.me/221755274787?text=Bonjour%2C%20je%20veux%20candidater%20au%20coaching%20Ecom%20Scaling.%20Mon%20CA%20actuel%20est%20d'environ%20___%2Fmois." target="_blank" rel="noopener">💬 Candidater sur WhatsApp</a>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <p>© <span id="y"></span> Ecom Scaling — Coaching privé e-commerce.<br>
+    Les objectifs supposent le respect des prérequis et un engagement actif de ta part. <a href="https://wa.me/221755274787" target="_blank" rel="noopener">Me contacter</a></p>
+  </div>
+</footer>
+
+<script>document.getElementById('y').textContent=new Date().getFullYear();</script>
+</body>
+</html>
