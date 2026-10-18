@@ -35,6 +35,11 @@
   .brand span{color:transparent;background:var(--grad);-webkit-background-clip:text;background-clip:text;}
   .nav .cta{display:inline-flex;align-items:center;gap:8px;background:var(--wa);color:#042012;font-family:'Sora';font-weight:800;font-size:.85rem;padding:9px 16px;border-radius:999px;text-decoration:none;}
 
+  /* BARRE ÉCHÉANCE */
+  .deadline{background:linear-gradient(90deg,#ffb43a,#ff8c42);color:#2a1800;text-align:center;font-family:'Sora';font-weight:800;font-size:.9rem;padding:11px 16px;line-height:1.35;}
+  .deadline b{color:#1a0f00;}
+  .deadline.closed{background:#1a2440;color:#9db0d4;}
+
   /* HERO */
   .hero{position:relative;padding:68px 0 48px;overflow:hidden;
     background:
@@ -154,6 +159,8 @@
     <a class="cta" href="#offres">Voir les offres →</a>
   </div>
 </nav>
+
+<div class="deadline" id="deadline">⏳ Candidatures ouvertes jusqu'au <b>15 novembre</b> — <span id="cd">calcul…</span></div>
 
 <!-- HERO -->
 <header class="hero">
@@ -352,6 +359,19 @@
   </div>
 </footer>
 
-<script>document.getElementById('y').textContent=new Date().getFullYear();</script>
+<script>
+document.getElementById('y').textContent=new Date().getFullYear();
+(function(){
+  var end=new Date('2026-11-15T23:59:59+00:00').getTime();
+  var el=document.getElementById('cd'), bar=document.getElementById('deadline');
+  function tick(){
+    var d=end-Date.now();
+    if(d<=0){ bar.classList.add('closed'); bar.innerHTML='⏳ Les candidatures sont closes pour le moment — écris-moi sur WhatsApp pour être prévenu de la prochaine session.'; return; }
+    var days=Math.floor(d/86400000), h=Math.floor(d%86400000/3600000), m=Math.floor(d%3600000/60000);
+    el.textContent='plus que '+days+'j '+h+'h '+m+'min pour candidater';
+  }
+  tick(); setInterval(tick,60000);
+})();
+</script>
 </body>
 </html>
