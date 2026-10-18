@@ -34,6 +34,10 @@
   .brand{font-weight:800;letter-spacing:1px;font-size:1.05rem;}
   .brand span{color:transparent;background:var(--grad);-webkit-background-clip:text;background-clip:text;}
   .nav .cta{display:inline-flex;align-items:center;gap:8px;background:var(--wa);color:#042012;font-family:'Sora';font-weight:800;font-size:.85rem;padding:9px 16px;border-radius:999px;text-decoration:none;}
+  .nav .menu{display:flex;align-items:center;gap:22px;}
+  .nav .menu a{color:var(--muted);text-decoration:none;font-weight:700;font-size:.9rem;transition:color .15s;}
+  .nav .menu a:hover{color:var(--text);}
+  @media(max-width:680px){ .nav .menu a:not(.cta){display:none;} .nav .menu{gap:0;} }
 
   /* BARRE ÉCHÉANCE */
   .deadline{background:linear-gradient(90deg,#ffb43a,#ff8c42);color:#2a1800;text-align:center;font-family:'Sora';font-weight:800;font-size:.9rem;padding:11px 16px;line-height:1.35;}
@@ -155,15 +159,20 @@
 
 <nav class="nav">
   <div class="wrap">
-    <div class="brand">ECOM<span>SCALING</span></div>
-    <a class="cta" href="#offres">Voir les offres →</a>
+    <a class="brand" href="#top" style="text-decoration:none;">ECOM<span>SCALING</span></a>
+    <div class="menu">
+      <a href="#offres">Les niveaux</a>
+      <a href="#process">Déroulé</a>
+      <a href="#faq">FAQ</a>
+      <a class="cta" href="#offres">Candidater →</a>
+    </div>
   </div>
 </nav>
 
 <div class="deadline" id="deadline">⏳ Candidatures ouvertes jusqu'au <b>15 novembre</b> — <span id="cd">calcul…</span></div>
 
 <!-- HERO -->
-<header class="hero">
+<header class="hero" id="top">
   <div class="grid-floor"></div>
   <div class="wrap">
     <span class="pill">🚀 Coaching privé e-commerce · Afrique</span>
@@ -313,7 +322,7 @@
 </section>
 
 <!-- PROCESS -->
-<section>
+<section id="process">
   <div class="wrap">
     <div class="kick">Comment ça se passe</div>
     <h2 class="h-sec">Un accompagnement 100% privé</h2>
@@ -327,7 +336,7 @@
 </section>
 
 <!-- FAQ -->
-<section style="background:var(--bg2);">
+<section id="faq" style="background:var(--bg2);">
   <div class="wrap">
     <div class="kick">Questions fréquentes</div>
     <h2 class="h-sec">Tout ce que tu dois savoir</h2>
