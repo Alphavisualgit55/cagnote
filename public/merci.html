@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Merci — Formation Ecom Booster</title>
+  <meta name="robots" content="noindex" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Sora:wght@600;700;800&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+  <div class="container">
+    <header class="site-header">
+      <a class="logo" href="index.html">ECOM<span>BOOSTER</span></a>
+    </header>
+  </div>
+
+  <div class="merci-wrap">
+    <div class="container">
+
+      <!-- Vérification en cours -->
+      <div class="card merci-card" id="state-loading">
+        <div class="spinner"></div>
+        <h1>Vérification de ton paiement…</h1>
+        <p>Un instant, nous confirmons ton paiement auprès de PayDunya.</p>
+      </div>
+
+      <!-- Paiement confirmé -->
+      <div class="card merci-card hidden" id="state-success">
+        <div class="icon">🎉</div>
+        <h1>Félicitations <span id="client-prenom"></span>, ton paiement est confirmé !</h1>
+        <p>Bienvenue dans <strong>Ecom Booster</strong>. Voici ta facture :</p>
+
+        <!-- Facture unique -->
+        <div class="facture" id="facture">
+          <div class="facture-head">
+            <div>
+              <div class="facture-brand">ECOM<span>BOOSTER</span></div>
+              <div class="facture-label">Facture / Reçu de paiement</div>
+            </div>
+            <div class="facture-num">
+              <span class="lbl">N° de facture</span>
+              <strong id="f-num">EB-000000</strong>
+            </div>
+          </div>
+          <div class="facture-rows">
+            <div class="f-row"><span>Date</span><span id="f-date">—</span></div>
+            <div class="f-row"><span>Client</span><span id="f-client">—</span></div>
+            <div class="f-row"><span>Email</span><span id="f-email">—</span></div>
+            <div class="f-row"><span>WhatsApp</span><span id="f-whatsapp">—</span></div>
+            <div class="f-row"><span>Formation</span><span>Ecom Booster — accès complet</span></div>
+            <div class="f-row"><span>Statut</span><span class="f-paid">✅ Payé</span></div>
+          </div>
+          <div class="facture-total">
+            <span>Total payé</span>
+            <span class="amount"><span id="f-montant">100.000</span> FCFA</span>
+          </div>
+        </div>
+
+        <ul class="steps">
+          <li>📧 Garde bien ton <strong>numéro de facture</strong> : il te sera demandé pour accéder à la formation.</li>
+          <li>📱 Clique sur le bouton ci-dessous pour <strong>contacter le formateur sur WhatsApp</strong> (message déjà pré-rempli) et recevoir tes accès à la formation.</li>
+        </ul>
+
+        <a class="btn wa-btn" id="contact-btn" href="#" target="_blank" rel="noopener">
+          💬 Contacter le formateur pour recevoir mes accès
+        </a>
+
+        <p class="site-line">
+          🌐 Site officiel : <a id="site-link" href="#">ecombooster</a>
+        </p>
+      </div>
+
+      <!-- Paiement non confirmé -->
+      <div class="card merci-card hidden" id="state-pending">
+        <div class="icon">⏳</div>
+        <h1>Paiement en cours de confirmation</h1>
+        <p>
+          Nous n'avons pas encore reçu la confirmation de ton paiement.
+          Si tu viens de payer, patiente quelques instants puis actualise cette page.
+        </p>
+        <p>Si tu n'as pas finalisé ton paiement, tu peux réessayer :</p>
+        <a class="btn btn-primary" href="checkout.html">↻ Reprendre mon paiement</a>
+      </div>
+
+    </div>
+  </div>
+
+  <footer>
+    <div class="container">© Ecom Booster — Paiement sécurisé via PayDunya</div>
+  </footer>
+
+  <script src="js/merci.js"></script>
+</body>
+</html>

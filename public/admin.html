@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin — Ecom Booster</title>
+  <meta name="robots" content="noindex, nofollow" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@600;700;800&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+  <style>
+    .admin-wrap { padding: 40px 0 90px; }
+    .admin-title { font-size: 1.5rem; font-weight: 800; margin-bottom: 4px; }
+    .admin-sub { color: var(--muted); font-size: 0.9rem; margin-bottom: 28px; }
+    .admin-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 14px; margin-bottom: 30px; }
+    .kpi { background: var(--card); border: 1px solid var(--line); border-radius: 14px; padding: 20px; text-align: center; }
+    .kpi .v { font-family: var(--font-head); font-size: 1.7rem; font-weight: 800; color: var(--cyan); }
+    .kpi .l { color: var(--muted); font-size: 0.8rem; margin-top: 4px; }
+    .kpi.money .v { color: var(--green); }
+    .admin-section { background: var(--card); border: 1px solid var(--line); border-radius: var(--radius); padding: 26px; margin-bottom: 24px; }
+    .admin-section h2 { font-size: 1.1rem; margin-bottom: 16px; }
+    .orders-table { width: 100%; overflow-x: auto; }
+    .orders-table table { width: 100%; border-collapse: collapse; min-width: 720px; font-size: 0.85rem; }
+    .orders-table th, .orders-table td { text-align: left; padding: 10px 12px; border-bottom: 1px solid var(--line); }
+    .orders-table th { color: var(--muted); font-weight: 700; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1px; }
+    .pill-ok { color: var(--green); font-weight: 700; }
+    .pill-wait { color: #ffc93a; font-weight: 700; }
+    .slots-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 14px; }
+    .slot { border: 1px dashed var(--line); border-radius: 12px; padding: 12px; text-align: center; }
+    .slot .preview { width: 100%; aspect-ratio: 1/1; border-radius: 8px; background: var(--bg-2); display: flex; align-items: center; justify-content: center; color: var(--muted); font-size: 0.75rem; overflow: hidden; margin-bottom: 10px; }
+    .slot .preview img { width: 100%; height: 100%; object-fit: cover; }
+    .slot .name { font-weight: 700; font-size: 0.82rem; margin-bottom: 8px; }
+    .slot input[type=file] { display: none; }
+    .slot .actions { display: flex; gap: 6px; justify-content: center; flex-wrap: wrap; }
+    .mini-btn { font-family: var(--font-head); font-size: 0.75rem; font-weight: 700; padding: 7px 13px; border-radius: 999px; border: 1px solid rgba(47,107,255,0.5); background: rgba(47,107,255,0.12); color: var(--text); cursor: pointer; }
+    .mini-btn:hover { background: rgba(47,107,255,0.25); }
+    .mini-btn.danger { border-color: rgba(255,93,93,0.5); background: rgba(255,93,93,0.1); }
+    .setting-row { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 12px; }
+    .setting-row input { flex: 1; min-width: 220px; background: rgba(10,15,31,0.8); border: 1px solid var(--line); border-radius: 10px; color: var(--text); padding: 11px 14px; font-family: inherit; }
+    .admin-msg { border-radius: 10px; padding: 11px 15px; font-size: 0.88rem; margin-bottom: 16px; display: none; }
+    .admin-msg.ok { display: block; background: rgba(46,229,107,0.1); border: 1px solid rgba(46,229,107,0.4); color: var(--green); }
+    .admin-msg.err { display: block; background: rgba(255,93,93,0.1); border: 1px solid rgba(255,93,93,0.4); color: #ffb0b0; }
+    #login-view .card { max-width: 420px; margin: 8vh auto 0; }
+    .refresh-row { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; margin-bottom: 18px; }
+  </style>
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="container" style="display:flex;align-items:center;justify-content:space-between;">
+      <a class="logo" href="index.html">ECOM<span>BOOSTER</span> <small style="color:var(--muted);font-size:0.7rem;font-weight:600;">ADMIN</small></a>
+      <button class="mini-btn hidden" id="logout-btn">Se déconnecter</button>
+    </div>
+  </header>
+
+  <div class="container admin-wrap">
+
+    <!-- Connexion -->
+    <div id="login-view">
+      <div class="card">
+        <h2>🔐 Panneau d'administration</h2>
+        <p class="hint">Entre ton mot de passe admin pour accéder au tableau de bord.</p>
+        <div class="field">
+          <label for="admin-pass">Mot de passe</label>
+          <input type="password" id="admin-pass" placeholder="••••••••" />
+        </div>
+        <div class="form-error" id="login-error"></div>
+        <button class="btn btn-primary btn-block" id="login-btn" style="margin-top:18px;">Se connecter</button>
+      </div>
+    </div>
+
+    <!-- Tableau de bord -->
+    <div id="dash-view" class="hidden">
+      <div class="refresh-row">
+        <div>
+          <div class="admin-title">📊 Tableau de bord</div>
+          <div class="admin-sub">Ventes, visiteurs et contenus du site.</div>
+        </div>
+        <button class="mini-btn" id="refresh-btn">↻ Actualiser</button>
+      </div>
+
+      <div class="admin-msg" id="admin-msg"></div>
+
+      <!-- KPIs -->
+      <div class="admin-grid">
+        <div class="kpi money"><div class="v" id="k-revenue">—</div><div class="l">Revenus encaissés (FCFA)</div></div>
+        <div class="kpi"><div class="v" id="k-paid">—</div><div class="l">Ventes payées</div></div>
+        <div class="kpi"><div class="v" id="k-pending">—</div><div class="l">Commandes en attente</div></div>
+        <div class="kpi"><div class="v" id="k-vtoday">—</div><div class="l">Visiteurs aujourd'hui</div></div>
+        <div class="kpi"><div class="v" id="k-v7">—</div><div class="l">Visiteurs 7 derniers jours</div></div>
+        <div class="kpi"><div class="v" id="k-vtotal">—</div><div class="l">Visiteurs au total</div></div>
+      </div>
+
+      <!-- Commandes -->
+      <div class="admin-section">
+        <h2>🧾 Dernières commandes</h2>
+        <div class="orders-table">
+          <table>
+            <thead><tr><th>Date</th><th>Facture</th><th>Client</th><th>Email</th><th>WhatsApp</th><th>Montant</th><th>Statut</th></tr></thead>
+            <tbody id="orders-body"><tr><td colspan="7" style="color:var(--muted);">Chargement…</td></tr></tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Images du site -->
+      <div class="admin-section">
+        <h2>🖼️ Images du site (remplacent les emplacements)</h2>
+        <p class="hint">JPG, PNG ou WEBP, max 4 Mo. L'image apparaît immédiatement sur le site après l'import.</p>
+        <div class="slots-grid" id="slots-grid"></div>
+      </div>
+
+      <!-- Réglages -->
+      <div class="admin-section">
+        <h2>⚙️ Réglages</h2>
+        <div class="setting-row">
+          <input type="url" id="set-video" placeholder="Lien vidéo de présentation (YouTube ou .mp4)" />
+          <button class="mini-btn" data-save="video_url">Enregistrer</button>
+        </div>
+        <div class="setting-row">
+          <input type="url" id="set-instagram" placeholder="Lien de ton compte Instagram (https://instagram.com/…)" />
+          <button class="mini-btn" data-save="instagram_url">Enregistrer</button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <script src="js/admin.js"></script>
+</body>
+</html>
